@@ -13,6 +13,11 @@ import {
   PROVIDER_TO_ENV_VAR,
 } from "./language_model_constants";
 import { getBuiltinLanguageModelCatalog } from "./remote_language_model_catalog";
+import {
+  EVENT_MODE,
+  EVENT_PROVIDER_ID,
+  HIDE_OTHER_PROVIDERS,
+} from "../../event-config";
 
 const logger = log.scope("language_model_helpers");
 /**
@@ -84,7 +89,17 @@ export async function getLanguageModelProviders(): Promise<
     }
   }
 
-  return [...hardcodedProviders, ...customProvidersMap.values()];
+  const all = [...hardcodedProviders, ...customProvidersMap.values()];
+
+  // Event-mode: hide every provider except the seeded event provider and local
+  // providers (Ollama / LM Studio), so attendees see one option in the picker.
+  if (EVENT_MODE && HIDE_OTHER_PROVIDERS) {
+    return all.filter(
+      (p) => p.id === EVENT_PROVIDER_ID || p.type === "local",
+    );
+  }
+
+  return all;
 }
 
 /**

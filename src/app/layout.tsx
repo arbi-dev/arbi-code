@@ -22,6 +22,7 @@ import { useQueueProcessor } from "@/hooks/useQueueProcessor";
 import { useIntegrationContinuation } from "@/hooks/useIntegrationContinuation";
 import i18n from "@/i18n";
 import { LanguageSchema } from "@/lib/schemas";
+import { EventKeyDialog } from "@/components/EventKeyDialog";
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   const { refreshAppIframe } = useRunApp();
@@ -127,6 +128,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
               richColors
               duration={settings?.isTestMode ? 500 : undefined}
             />
+            <EventKeyDialog />
           </SidebarProvider>
         </DeepLinkProvider>
       </ThemeProvider>

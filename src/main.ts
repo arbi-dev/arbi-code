@@ -59,6 +59,7 @@ import fs from "fs";
 import { gitAddSafeDirectory } from "./ipc/utils/git_utils";
 import { getDyadAppsBaseDirectory, getDyadAppPath } from "./paths/paths";
 import { createDeepLinkQueue } from "./main/deep_link_queue";
+import { seedEventProvider } from "./main/event-seed";
 
 log.errorHandler.startCatching();
 log.eventLogger.startLogging();
@@ -184,6 +185,9 @@ export async function onReady() {
   }
   initializeDatabase();
 
+  // Event-mode: pre-seed the LiteLLM provider so attendees don't configure it.
+  await seedEventProvider();
+
   // Cleanup old ai_messages_json entries to prevent database bloat
   cleanupOldAiMessagesJson();
 
@@ -291,24 +295,9 @@ export async function onReady() {
   createWindow();
   createApplicationMenu();
 
-  logger.info("Auto-update enabled=", settings.enableAutoUpdate);
-  if (settings.enableAutoUpdate) {
-    // Technically we could just pass the releaseChannel directly to the host,
-    // but this is more explicit and falls back to stable if there's an unknown
-    // release channel.
-    const postfix = settings.releaseChannel === "beta" ? "beta" : "stable";
-    const host = `https://api.dyad.sh/v1/update/${postfix}`;
-    logger.info("Auto-update release channel=", postfix);
-    updateElectronApp({
-      logger,
-      updateInterval: "60 minutes",
-      updateSource: {
-        type: UpdateSourceType.ElectronPublicUpdateService,
-        repo: "dyad-sh/dyad",
-        host,
-      },
-    }); // additional configuration options available
-  }
+  // Event fork: auto-update disabled. The default update feed points at
+  // dyad-sh/dyad, which would pull attendees off the event build.
+  logger.info("Auto-update disabled in event fork");
 }
 
 export async function onFirstRunMaybe(settings: UserSettings) {

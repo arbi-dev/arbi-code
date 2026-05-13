@@ -98,30 +98,20 @@ const config: ForgeConfig = {
       : undefined,
     protocols: [
       {
-        name: "Dyad",
+        name: "ARBI Code",
+        // Scheme intentionally left as "dyad" to avoid breaking the existing
+        // OAuth return handlers (Supabase, Neon, dyad-pro) that hard-code it.
         schemes: ["dyad"],
       },
     ],
     icon: "./assets/icon/logo",
 
-    osxSign: isEndToEndTestBuild
-      ? undefined
-      : ({
-          identity: process.env.APPLE_TEAM_ID,
-          // Surface the actual signing error instead of silently continuing
-          // (@electron/packager defaults continueOnError to true, which masks failures)
-          continueOnError: false,
-          // Skip provisioning profile search (not needed for Developer ID distribution,
-          // and the cwd scan crashes on broken symlinks like CLAUDE.md)
-          preEmbedProvisioningProfile: false,
-        } as Record<string, unknown>),
-    osxNotarize: isEndToEndTestBuild
-      ? undefined
-      : {
-          appleId: process.env.APPLE_ID!,
-          appleIdPassword: process.env.APPLE_PASSWORD!,
-          teamId: process.env.APPLE_TEAM_ID!,
-        },
+    // Event fork: signing/notarization disabled.
+    // Attendees see one-time "More info → Run anyway" (Windows) or
+    // right-click → Open (Mac) on first launch. Wire these back in
+    // before going to a wider audience.
+    osxSign: undefined,
+    osxNotarize: undefined,
     asar: {
       // node-pty loads helper binaries like spawn-helper and winpty-agent from disk.
       unpackDir:
@@ -142,12 +132,12 @@ const config: ForgeConfig = {
         ? {
             windowsSign,
             iconUrl:
-              "https://raw.githubusercontent.com/dyad-sh/dyad/main/assets/icon/logo.ico",
+              "https://raw.githubusercontent.com/arbi-dev/arbi-code/main/assets/icon/logo.ico",
             setupIcon: "./assets/icon/logo.ico",
           }
         : {
             iconUrl:
-              "https://raw.githubusercontent.com/dyad-sh/dyad/main/assets/icon/logo.ico",
+              "https://raw.githubusercontent.com/arbi-dev/arbi-code/main/assets/icon/logo.ico",
             setupIcon: "./assets/icon/logo.ico",
           },
     ),
@@ -172,8 +162,8 @@ const config: ForgeConfig = {
       name: "@electron-forge/publisher-github",
       config: {
         repository: {
-          owner: "dyad-sh",
-          name: "dyad",
+          owner: "arbi-dev",
+          name: "arbi-code",
         },
         draft: true,
         force: true,
