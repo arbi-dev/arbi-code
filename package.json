@@ -1,7 +1,7 @@
 {
-  "name": "dyad",
-  "version": "0.46.0-beta.1",
-  "description": "Free, local, open-source AI app builder",
+  "name": "arbi-code",
+  "version": "0.1.1",
+  "description": "AI app builder for ARBI hackathon events (fork of Dyad)",
   "keywords": [],
   "license": "MIT",
   "author": {

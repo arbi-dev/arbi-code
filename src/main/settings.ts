@@ -24,15 +24,19 @@ import {
   getRemoteDesktopConfig,
   type RemoteDesktopConfig,
 } from "@/ipc/shared/remote_desktop_config";
+import { EVENT_PROVIDER_ID, EVENT_MODELS } from "../event-config";
 
 const logger = log.scope("settings");
 
 // IF YOU NEED TO UPDATE THIS, YOU'RE PROBABLY DOING SOMETHING WRONG!
 // Need to maintain backwards compatibility!
+//
+// Event-fork override: default to the seeded ARBI provider instead of `auto`
+// (which is a Dyad Pro feature hidden from this fork's provider picker).
 const DEFAULT_SETTINGS: UserSettings = {
   selectedModel: {
-    name: "auto",
-    provider: "auto",
+    name: EVENT_MODELS[0].apiName,
+    provider: EVENT_PROVIDER_ID,
   },
   providerSettings: {},
   telemetryConsent: "unset",

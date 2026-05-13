@@ -32,11 +32,9 @@ export const EVENT_MODELS: ReadonlyArray<{
   maxOutputTokens?: number;
 }> = [
   {
-    apiName: "claude-sonnet-4-6",
-    displayName: "Claude Sonnet 4.6",
-    description: "Default event model.",
-    contextWindow: 200_000,
-    maxOutputTokens: 8_192,
+    apiName: "Wise",
+    displayName: "Wise",
+    description: "ARBI reasoning model.",
   },
 ];
 

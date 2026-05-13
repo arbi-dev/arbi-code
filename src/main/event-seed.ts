@@ -12,8 +12,28 @@ import {
   EVENT_LITELLM_URL,
   EVENT_MODELS,
 } from "../event-config";
+import { readSettings, writeSettings } from "./settings";
 
 const logger = log.scope("event-seed");
+
+// Migrate settings from v0.1.0 (which left selectedModel pointing at the
+// upstream Dyad `auto` router that this fork hides from the picker).
+function normalizeSelectedModel(): void {
+  try {
+    const settings = readSettings();
+    if (settings.selectedModel?.provider === "auto") {
+      writeSettings({
+        selectedModel: {
+          name: EVENT_MODELS[0].apiName,
+          provider: EVENT_PROVIDER_ID,
+        },
+      });
+      logger.info("Reset selectedModel: auto -> event provider");
+    }
+  } catch (err) {
+    logger.error("normalizeSelectedModel failed", err);
+  }
+}
 
 // Idempotent: inserts the event provider + models into the local SQLite DB
 // on every launch if they're not already present. Safe to run unconditionally.
@@ -62,6 +82,8 @@ export async function seedEventProvider(): Promise<void> {
       });
       logger.info("Seeded event model", { apiName: m.apiName });
     }
+
+    normalizeSelectedModel();
   } catch (err) {
     // Seeding failure should not block app launch.
     logger.error("seedEventProvider failed", err);
