@@ -3,7 +3,7 @@ name: Release
 on:
   push:
     tags:
-      - "v*"
+      - "arbi-v*"
   workflow_dispatch:
 
 permissions:
@@ -41,7 +41,7 @@ jobs:
   release:
     needs: build
     runs-on: ubuntu-latest
-    if: startsWith(github.ref, 'refs/tags/v')
+    if: startsWith(github.ref, 'refs/tags/arbi-v')
     steps:
       - uses: actions/download-artifact@v4
         with:
