@@ -87,7 +87,7 @@ interface DyadCardProps {
 }
 
 /**
- * Premium container for all Dyad markdown action cards.
+ * Premium container for all ARBI Code markdown action cards.
  * Provides consistent borders, backgrounds, hover states, and a colored
  * left-accent border when the action is pending or aborted (or when
  * `showAccent` is explicitly set).

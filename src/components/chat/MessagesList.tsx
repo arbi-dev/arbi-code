@@ -19,7 +19,6 @@ import { chatMessagesByIdAtom } from "@/atoms/chatAtoms";
 import { useLanguageModelProviders } from "@/hooks/useLanguageModelProviders";
 import { useSettings } from "@/hooks/useSettings";
 import { useUserBudgetInfo } from "@/hooks/useUserBudgetInfo";
-import { PromoMessage } from "./PromoMessage";
 import { isCancelledResponseContent } from "@/shared/chatCancellation";
 
 interface MessagesListProps {
@@ -70,8 +69,6 @@ function FooterComponent({ context }: { context?: FooterContext }) {
     selectedChatId,
     appId,
     setMessagesById,
-    settings,
-    userBudget,
     renderSetupBanner,
   } = context;
 
@@ -251,14 +248,7 @@ function FooterComponent({ context }: { context?: FooterContext }) {
           </div>
         </div>
       )}
-      {isStreaming &&
-        !settings?.enableDyadPro &&
-        !userBudget &&
-        messages.length > 0 && (
-          <PromoMessage
-            seed={messages.length * (appId ?? 1) * (selectedChatId ?? 1)}
-          />
-        )}
+      {/* ARBI fork: in-chat promo/subreddit tips removed. */}
       <div ref={messagesEndRef} />
       {renderSetupBanner()}
     </>

@@ -101,7 +101,7 @@ export function AzureConfiguration({
         variant: "default" as const,
         title: "Azure OpenAI Configured",
         description:
-          "Dyad will use the credentials saved in Settings for Azure OpenAI models.",
+          "ARBI Code will use the credentials saved in Settings for Azure OpenAI models.",
         icon: KeyRound,
         titleClassName: "",
         descriptionClassName: "",
@@ -254,12 +254,13 @@ export function AzureConfiguration({
             <div className="text-sm text-muted-foreground space-y-2">
               <p>
                 You can continue to configure Azure via environment variables.
-                If both variables are present and no settings are saved, Dyad
-                will use them automatically.
+                If both variables are present and no settings are saved, ARBI
+                Code will use them automatically.
               </p>
               <p>
                 Values saved in Settings take precedence over environment
-                variables. Restart Dyad after changing environment variables.
+                variables. Restart ARBI Code after changing environment
+                variables.
               </p>
             </div>
           </AccordionContent>

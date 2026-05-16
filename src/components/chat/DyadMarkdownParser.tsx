@@ -91,7 +91,7 @@ export const VanillaMarkdownParser = ({ content }: { content: string }) => {
 };
 
 /**
- * Custom component to parse markdown content with Dyad-specific tags.
+ * Custom component to parse markdown content with ARBI Code-specific tags.
  *
  * Block list is produced by an incremental dyad-tag parser
  * (src/lib/streamingMessageParser.ts) called one-shot per render.

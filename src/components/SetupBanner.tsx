@@ -329,10 +329,14 @@ export function SetupBanner() {
                 onClick={handleDyadProSetupClick}
                 tabIndex={isNodeSetupComplete ? 0 : -1}
                 leadingIcon={
-                  <img src={logo} alt="Dyad Logo" className="w-6 h-6 mr-0.5" />
+                  <img
+                    src={logo}
+                    alt="ARBI Code Logo"
+                    className="w-6 h-6 mr-0.5"
+                  />
                 }
-                title="Start with Dyad Pro free trial"
-                subtitle="Unlock the full power of Dyad"
+                title="Start with ARBI Code Pro free trial"
+                subtitle="Unlock the full power of ARBI Code"
                 chip={<>Recommended</>}
               />
               <div className="mt-2 flex gap-2">
@@ -460,7 +464,8 @@ function NodeInstallButton({
     case "finished-checking":
       return (
         <div className="mt-3 text-sm text-red-600 dark:text-red-400">
-          Node.js not detected. Closing and re-opening Dyad usually fixes this.
+          Node.js not detected. Closing and re-opening ARBI Code usually fixes
+          this.
         </div>
       );
     default:

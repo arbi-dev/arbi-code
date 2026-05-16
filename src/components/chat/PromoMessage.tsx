@@ -56,7 +56,11 @@ export function Message({ spans }: MessageConfig) {
 export const TURBO_EDITS_PROMO_MESSAGE: MessageConfig = {
   spans: [
     { type: "text", content: "Tired of waiting on AI?" },
-    { type: "link", content: " Get Dyad Pro", url: "https://dyad.sh/pro#ai" },
+    {
+      type: "link",
+      content: " Get ARBI Code Pro",
+      url: "https://dyad.sh/pro#ai",
+    },
     { type: "text", content: " for faster edits with Turbo Edits." },
   ],
 };
@@ -66,7 +70,7 @@ export const SMART_CONTEXT_PROMO_MESSAGE: MessageConfig = {
     { type: "text", content: "Save up to 3x on AI costs with " },
     {
       type: "link",
-      content: "Dyad Pro's Smart Context",
+      content: "ARBI Code Pro's Smart Context",
       url: "https://dyad.sh/pro#ai",
     },
   ],
@@ -90,7 +94,7 @@ export const REDDIT_TIP: MessageConfig = {
     },
     {
       type: "link",
-      content: "Dyad subreddit",
+      content: "ARBI Code subreddit",
       url: "https://www.reddit.com/r/dyadbuilders/",
     },
   ],
@@ -124,7 +128,7 @@ export const BUILD_A_BIBLE_APP_TIP: MessageConfig = {
     },
     {
       type: "text",
-      content: " the creator of Dyad build a Bible app step-by-step",
+      content: " the creator of ARBI Code build a Bible app step-by-step",
     },
   ],
 };
@@ -182,12 +186,12 @@ export const ROADMAP_TIP: MessageConfig = {
   ],
 };
 
-// Like Dyad? Star it on GitHub https://github.com/dyad-sh/dyad/
+// Like ARBI Code? Star it on GitHub https://github.com/dyad-sh/dyad/
 export const GITHUB_TIP: MessageConfig = {
   spans: [
     {
       type: "text",
-      content: "Like Dyad? Star it on ",
+      content: "Like ARBI Code? Star it on ",
     },
     {
       type: "link",

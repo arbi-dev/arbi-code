@@ -46,7 +46,7 @@ export const TitleBar = () => {
     const handleDeepLink = async () => {
       if (lastDeepLink?.type === "dyad-pro-return") {
         await refreshSettings();
-        // Refetch user budget when Dyad Pro key is set via deep link
+        // Refetch user budget when ARBI Code Pro key is set via deep link
         queryClient.invalidateQueries({ queryKey: queryKeys.userBudget.info });
         showDyadProSuccessDialog();
         clearLastDeepLink();
@@ -103,7 +103,7 @@ export const TitleBar = () => {
                 />
               }
             >
-              <img src={logo} alt="Dyad" className="w-5 h-5 shrink-0" />
+              <img src={logo} alt="ARBI Code" className="w-5 h-5 shrink-0" />
               <span className="hidden @2xl:inline max-w-40 truncate">
                 Manage app
               </span>

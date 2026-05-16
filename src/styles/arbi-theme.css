@@ -1,0 +1,73 @@
+/*
+ * ARBI brand theme override (fork-owned).
+ *
+ * Loaded via a <link> AFTER globals.css in index.html so it overrides only the
+ * brand-relevant CSS custom properties by cascade — globals.css is left
+ * untouched to keep upstream merges conflict-free. globals.css maps every
+ * Tailwind color token with `@theme inline { --color-*: var(--*) }`, so
+ * redefining the `--*` variables here re-skins the whole app (utilities,
+ * components, sidebar) automatically.
+ *
+ * Brand: ARBI blue #01adef (~oklch(0.70 0.15 233)),
+ *        ARBI navy #202b61 (~oklch(0.30 0.10 274)). Kept in sync with
+ *        ARBI_BLUE / ARBI_NAVY in src/event-config.ts.
+ *
+ * Upstream lightness/chroma structure is preserved (so contrast + dark mode
+ * keep working); only hues are shifted to the ARBI family and key brand
+ * surfaces (primary, ring, sidebar accents) are set to ARBI blue.
+ */
+
+:root {
+  /* Subtle tinted backgrounds: purple (hue ~292) -> ARBI blue/navy (~250) */
+  --background-lighter: oklch(0.995 0.0188 250);
+  --background: oklch(0.985 0.0188 250);
+  --background-darker: oklch(0.955 0.0188 250);
+  --background-darkest: oklch(0.925 0.0188 250);
+
+  /* Text: navy-leaning instead of purple, same L/C for contrast */
+  --foreground: oklch(0.25 0.0679 270);
+
+  /* Brand primary = ARBI blue (slightly deepened for white-text contrast) */
+  --primary: oklch(0.62 0.16 235);
+  --primary-foreground: oklch(0.985 0 0);
+
+  /* Faint blue accent surfaces instead of neutral gray */
+  --accent: oklch(0.95 0.03 233);
+  --accent-foreground: oklch(0.28 0.06 270);
+
+  /* Brand focus ring */
+  --ring: oklch(0.62 0.16 235);
+
+  /* Sidebar re-skin */
+  --sidebar: oklch(0.96 0.0188 250);
+  --sidebar-primary: oklch(0.62 0.16 235);
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: oklch(0.88 0.07 240);
+  --sidebar-accent-foreground: oklch(0.25 0.06 270);
+  --sidebar-ring: oklch(0.62 0.16 235);
+}
+
+.dark {
+  /* Faint navy tint on the dark neutrals for brand cohesion */
+  --background-lightest: oklch(0.285 0.012 270);
+  --background-lighter: oklch(0.19 0.014 270);
+  --background: oklch(0.155 0.014 270);
+  --background-darker: oklch(0.135 0.014 270);
+  --background-darkest: oklch(0.115 0.014 270);
+
+  /* Brand primary glows blue on dark, white text */
+  --primary: oklch(0.65 0.16 235);
+  --primary-foreground: oklch(0.985 0 0);
+
+  --accent: oklch(0.3 0.04 255);
+  --accent-foreground: oklch(0.985 0 0);
+
+  --ring: oklch(0.65 0.16 235);
+
+  --sidebar: oklch(0.2 0.02 270);
+  --sidebar-primary: oklch(0.65 0.16 235);
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: oklch(0.34 0.035 255);
+  --sidebar-accent-foreground: oklch(0.985 0 0);
+  --sidebar-ring: oklch(0.65 0.16 235);
+}
