@@ -99,7 +99,7 @@ describe("readSettings", () => {
           "releaseChannel": "stable",
           "selectedChatMode": "build",
           "selectedModel": {
-            "name": "Wise",
+            "name": "Fast",
             "provider": "custom::arbi-litellm",
           },
           "selectedTemplateId": "react",
@@ -492,7 +492,7 @@ describe("readSettings", () => {
           "releaseChannel": "stable",
           "selectedChatMode": "build",
           "selectedModel": {
-            "name": "Wise",
+            "name": "Fast",
             "provider": "custom::arbi-litellm",
           },
           "selectedTemplateId": "react",
@@ -511,7 +511,7 @@ describe("readSettings", () => {
 
       expect(result).toMatchObject({
         selectedModel: {
-          name: "Wise",
+          name: "Fast",
           provider: "custom::arbi-litellm",
         },
         releaseChannel: "stable",
@@ -534,7 +534,7 @@ describe("readSettings", () => {
 
       expect(result).toMatchObject({
         selectedModel: {
-          name: "Wise",
+          name: "Fast",
           provider: "custom::arbi-litellm",
         },
         releaseChannel: "stable",
@@ -602,7 +602,7 @@ describe("readSettings", () => {
       const result = readSettings();
 
       expect(result.selectedModel).toEqual({
-        name: "Wise",
+        name: "Fast",
         provider: "custom::arbi-litellm",
       });
       expect(result.githubAccessToken).toBeUndefined();

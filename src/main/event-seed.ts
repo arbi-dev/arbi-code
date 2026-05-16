@@ -44,6 +44,61 @@ function normalizeSelectedModel(): void {
   }
 }
 
+// Self-heal a stored event key that the gateway rejects.
+//
+// The diagnostic proved a valid key works end-to-end, so a stored key that
+// fails auth means the persisted value is wrong/expired/corrupted (e.g. an
+// older build encrypted it via Electron safeStorage and the decrypt
+// round-trip mangled it on packaged Windows). EventKeyDialog only re-prompts
+// when NO key is stored, so a truthy-but-broken key leaves every chat failing
+// silently with no error and no recovery. Clearing it makes the dialog
+// re-appear. Network errors are treated as transient (key left untouched).
+async function verifyOrClearEventKey(): Promise<void> {
+  try {
+    const settings = readSettings();
+    const key = settings.providerSettings?.[EVENT_PROVIDER_ID]?.apiKey?.value;
+    if (!key) return;
+
+    let res;
+    try {
+      res = await fetch(`${EVENT_LITELLM_URL}/models`, {
+        headers: { Authorization: `Bearer ${key}` },
+      });
+    } catch (netErr) {
+      logger.warn(
+        "Event key verification skipped (network error); leaving key as-is",
+        netErr,
+      );
+      return;
+    }
+
+    if (res.ok) {
+      logger.info("Stored event key verified OK against gateway");
+      return;
+    }
+
+    if (res.status === 401 || res.status === 403) {
+      const providerSettings = { ...settings.providerSettings };
+      const ev = { ...providerSettings[EVENT_PROVIDER_ID] };
+      delete ev.apiKey;
+      providerSettings[EVENT_PROVIDER_ID] = ev;
+      writeSettings({ providerSettings });
+      logger.error(
+        `Event key rejected by ${EVENT_LITELLM_URL} (HTTP ${res.status}); ` +
+          "cleared the stored key so the setup dialog re-prompts instead of " +
+          "failing silently.",
+      );
+      return;
+    }
+
+    logger.warn(
+      `Event key check returned HTTP ${res.status}; leaving key as-is`,
+    );
+  } catch (err) {
+    logger.error("verifyOrClearEventKey failed", err);
+  }
+}
+
 // Idempotent: inserts the event provider + models into the local SQLite DB
 // on every launch if they're not already present. Safe to run unconditionally.
 export async function seedEventProvider(): Promise<void> {
@@ -112,6 +167,7 @@ export async function seedEventProvider(): Promise<void> {
     }
 
     normalizeSelectedModel();
+    await verifyOrClearEventKey();
   } catch (err) {
     // Seeding failure should not block app launch.
     logger.error("seedEventProvider failed", err);

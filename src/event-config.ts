@@ -32,6 +32,11 @@ export const EVENT_MODELS: ReadonlyArray<{
   maxOutputTokens?: number;
 }> = [
   {
+    apiName: "Fast",
+    displayName: "Fast",
+    description: "ARBI fast model for quick iterations.",
+  },
+  {
     apiName: "Wise",
     displayName: "Wise",
     description: "ARBI reasoning model.",
