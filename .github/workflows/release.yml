@@ -12,6 +12,16 @@ permissions:
 jobs:
   build:
     runs-on: windows-latest
+    # Azure Trusted Signing — set these as GitHub repo secrets to enable signed
+    # builds. While unset, the signing step below is skipped and builds are
+    # produced unsigned, so releases keep working in the meantime.
+    env:
+      AZURE_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
+      AZURE_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
+      AZURE_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
+      TRUSTED_SIGNING_ENDPOINT: ${{ secrets.TRUSTED_SIGNING_ENDPOINT }}
+      TRUSTED_SIGNING_ACCOUNT: ${{ secrets.TRUSTED_SIGNING_ACCOUNT }}
+      TRUSTED_SIGNING_PROFILE: ${{ secrets.TRUSTED_SIGNING_PROFILE }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -20,6 +30,28 @@ jobs:
       - run: npm ci
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Set up Azure Trusted Signing
+        # No-op until the AZURE_* secrets exist, so unsigned builds keep
+        # working. When present, this installs the Trusted Signing dlib,
+        # writes the metadata file, and exports the env vars consumed by
+        # forge.config.ts -> windowsSign.ts (signtool /dlib /dmdf).
+        if: env.AZURE_CLIENT_ID != ''
+        shell: pwsh
+        run: |
+          $pkg = "Microsoft.Trusted.Signing.Client"
+          $ver = "1.0.60"   # bump to the current Trusted Signing client version
+          nuget install $pkg -Version $ver -ExcludeVersion -OutputDirectory "$env:RUNNER_TEMP\ts"
+          $dlib = "$env:RUNNER_TEMP\ts\$pkg\bin\x64\Azure.CodeSigning.Dlib.dll"
+          if (-not (Test-Path $dlib)) { throw "Trusted Signing dlib not found: $dlib" }
+          $metaPath = "$env:RUNNER_TEMP\ts-metadata.json"
+          @{
+            Endpoint               = $env:TRUSTED_SIGNING_ENDPOINT
+            CodeSigningAccountName = $env:TRUSTED_SIGNING_ACCOUNT
+            CertificateProfileName = $env:TRUSTED_SIGNING_PROFILE
+          } | ConvertTo-Json | Out-File -FilePath $metaPath -Encoding ascii
+          "WINDOWS_SIGN=true"             | Out-File $env:GITHUB_ENV -Append
+          "AZURE_CODE_SIGNING_DLIB=$dlib" | Out-File $env:GITHUB_ENV -Append
+          "AZURE_METADATA_JSON=$metaPath" | Out-File $env:GITHUB_ENV -Append
       - name: Build installer
         run: npm run make
         env:

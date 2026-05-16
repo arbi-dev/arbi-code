@@ -69,8 +69,48 @@ You should hand each attendee a virtual key scoped to:
 - A per-attendee dollar budget
 - A short expiry (e.g. 24h past event end)
 
+## Code signing (Azure Trusted Signing)
+
+The Windows signing pipeline is **pre-wired** in `.github/workflows/release.yml`
+(`forge.config.ts` → `windowsSign.ts`, signtool `/dlib /dmdf`, timestamped).
+It is **gated on secrets**: until the `AZURE_*` repo secrets exist the signing
+step is skipped and builds ship unsigned — so releases keep working unchanged.
+
+**Reality check:** signing removes the "unknown publisher" UAC prompt and shows
+your org name immediately, but Microsoft **SmartScreen is reputation-based** —
+the full-screen "Windows protected your PC" prompt fades only as the validated
+identity accrues install reputation over a release or few. There is no
+legitimate switch for day-one zero-warning on a brand-new identity.
+
+**One-time procurement (Organization identity):**
+
+1. Azure subscription → create a **Trusted Signing account** + **Certificate
+   Profile** (Public Trust). Note the **endpoint** (e.g.
+   `https://eus.codesigning.azure.net/`), account name, profile name.
+2. Complete **Organization identity validation** (legal entity, verifiable
+   tenure). The validated org name is what users see.
+3. Create an Entra **app registration** (service principal) and grant it the
+   **Trusted Signing Certificate Profile Signer** role on the account.
+
+**Add these GitHub repo secrets** (Settings → Secrets → Actions); the workflow
+auto-enables signing once present:
+
+| Secret                     | Value                                     |
+| -------------------------- | ----------------------------------------- |
+| `AZURE_TENANT_ID`          | Entra tenant ID                           |
+| `AZURE_CLIENT_ID`          | service-principal app ID                  |
+| `AZURE_CLIENT_SECRET`      | service-principal secret                  |
+| `TRUSTED_SIGNING_ENDPOINT` | e.g. `https://eus.codesigning.azure.net/` |
+| `TRUSTED_SIGNING_ACCOUNT`  | Trusted Signing account name              |
+| `TRUSTED_SIGNING_PROFILE`  | certificate profile name                  |
+
+Then cut a normal `arbi-v*` tag. Verify on the resulting `Setup.exe`:
+right-click → Properties → **Digital Signatures** shows your org, and
+`signtool verify /pa /v ARBI.Code-*.exe` succeeds. (Bump the dlib version
+in the workflow's signing step if Microsoft ships a newer client.)
+
 ## What's NOT done (intentionally)
 
-- **Code signing** — disabled. SmartScreen / Gatekeeper warnings are one-time per attendee. Wire signing back in (`AZURE_CODE_SIGNING_DLIB`, Apple Developer ID) before any public release.
+- **macOS signing/notarization** — still disabled (`osxSign`/`osxNotarize` undefined); only Windows signing is wired. Add an Apple Developer ID before shipping a Mac build to a wider audience.
 - **Custom update server** — auto-update is turned off, not redirected. To ship fixes mid-event, build a new tag and re-distribute the installer URL.
 - **Per-attendee logging** — LiteLLM tracks usage per virtual key. No additional telemetry was added to this fork.
