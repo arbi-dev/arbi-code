@@ -99,8 +99,8 @@ describe("readSettings", () => {
           "releaseChannel": "stable",
           "selectedChatMode": "build",
           "selectedModel": {
-            "name": "auto",
-            "provider": "auto",
+            "name": "Wise",
+            "provider": "custom::arbi-litellm",
           },
           "selectedTemplateId": "react",
           "selectedThemeId": "default",
@@ -492,8 +492,8 @@ describe("readSettings", () => {
           "releaseChannel": "stable",
           "selectedChatMode": "build",
           "selectedModel": {
-            "name": "auto",
-            "provider": "auto",
+            "name": "Wise",
+            "provider": "custom::arbi-litellm",
           },
           "selectedTemplateId": "react",
           "selectedThemeId": "default",
@@ -511,8 +511,8 @@ describe("readSettings", () => {
 
       expect(result).toMatchObject({
         selectedModel: {
-          name: "auto",
-          provider: "auto",
+          name: "Wise",
+          provider: "custom::arbi-litellm",
         },
         releaseChannel: "stable",
       });
@@ -534,8 +534,8 @@ describe("readSettings", () => {
 
       expect(result).toMatchObject({
         selectedModel: {
-          name: "auto",
-          provider: "auto",
+          name: "Wise",
+          provider: "custom::arbi-litellm",
         },
         releaseChannel: "stable",
       });
@@ -602,8 +602,8 @@ describe("readSettings", () => {
       const result = readSettings();
 
       expect(result.selectedModel).toEqual({
-        name: "auto",
-        provider: "auto",
+        name: "Wise",
+        provider: "custom::arbi-litellm",
       });
       expect(result.githubAccessToken).toBeUndefined();
     });

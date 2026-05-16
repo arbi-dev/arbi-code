@@ -12,17 +12,17 @@ A minimal fork of [Dyad](https://github.com/dyad-sh/dyad) that turns it into a o
 
 ## What was patched vs upstream Dyad
 
-| File | What it does |
-|---|---|
-| `src/event-config.ts` | **New.** Single source of truth — gateway URL, models, brand strings, brand colors. |
-| `src/main/event-seed.ts` | **New.** On every launch, inserts the ARBI provider + models into the local SQLite DB. Idempotent. |
-| `src/components/EventKeyDialog.tsx` | **New.** First-run "paste your key" modal styled with ARBI blue/navy. |
-| `src/main.ts` | Calls `seedEventProvider()` after DB init; disables auto-update. |
-| `src/ipc/shared/language_model_helpers.ts` | Hides built-in cloud providers from the picker. |
-| `src/app/layout.tsx` | Mounts `<EventKeyDialog />` at root. |
-| `package.json` | `productName: "ARBI Code"` (drives installer filenames + window title) |
-| `forge.config.ts` | Disables osx/windows signing; sets publisher to `arbi-dev/arbi-code`; renames protocol display to "ARBI Code" |
-| `assets/icon/logo.{ico,icns,png,svg}` + `assets/logo.svg` | ARBI shield logo (rendered from `ARBI-frontend/public/favicon.svg`) |
+| File                                                      | What it does                                                                                                  |
+| --------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------- |
+| `src/event-config.ts`                                     | **New.** Single source of truth — gateway URL, models, brand strings, brand colors.                           |
+| `src/main/event-seed.ts`                                  | **New.** On every launch, inserts the ARBI provider + models into the local SQLite DB. Idempotent.            |
+| `src/components/EventKeyDialog.tsx`                       | **New.** First-run "paste your key" modal styled with ARBI blue/navy.                                         |
+| `src/main.ts`                                             | Calls `seedEventProvider()` after DB init; disables auto-update.                                              |
+| `src/ipc/shared/language_model_helpers.ts`                | Hides built-in cloud providers from the picker.                                                               |
+| `src/app/layout.tsx`                                      | Mounts `<EventKeyDialog />` at root.                                                                          |
+| `package.json`                                            | `productName: "ARBI Code"` (drives installer filenames + window title)                                        |
+| `forge.config.ts`                                         | Disables osx/windows signing; sets publisher to `arbi-dev/arbi-code`; renames protocol display to "ARBI Code" |
+| `assets/icon/logo.{ico,icns,png,svg}` + `assets/logo.svg` | ARBI shield logo (rendered from `ARBI-frontend/public/favicon.svg`)                                           |
 
 To re-sync with upstream Dyad: `git remote add upstream https://github.com/dyad-sh/dyad.git && git fetch upstream && git rebase upstream/main`. Patches live in their own files so conflicts should be minimal.
 
@@ -64,6 +64,7 @@ Edit `EVENT_MODELS` to match.
 ## Distributing event keys
 
 You should hand each attendee a virtual key scoped to:
+
 - The models in `EVENT_MODELS`
 - A per-attendee dollar budget
 - A short expiry (e.g. 24h past event end)
@@ -73,4 +74,3 @@ You should hand each attendee a virtual key scoped to:
 - **Code signing** — disabled. SmartScreen / Gatekeeper warnings are one-time per attendee. Wire signing back in (`AZURE_CODE_SIGNING_DLIB`, Apple Developer ID) before any public release.
 - **Custom update server** — auto-update is turned off, not redirected. To ship fixes mid-event, build a new tag and re-distribute the installer URL.
 - **Per-attendee logging** — LiteLLM tracks usage per virtual key. No additional telemetry was added to this fork.
-

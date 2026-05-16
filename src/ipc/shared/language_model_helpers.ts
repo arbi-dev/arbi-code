@@ -94,9 +94,7 @@ export async function getLanguageModelProviders(): Promise<
   // Event-mode: hide every provider except the seeded event provider and local
   // providers (Ollama / LM Studio), so attendees see one option in the picker.
   if (EVENT_MODE && HIDE_OTHER_PROVIDERS) {
-    return all.filter(
-      (p) => p.id === EVENT_PROVIDER_ID || p.type === "local",
-    );
+    return all.filter((p) => p.id === EVENT_PROVIDER_ID || p.type === "local");
   }
 
   return all;

@@ -36,7 +36,7 @@ export function EventKeyDialog() {
         providerSettings: {
           ...settings.providerSettings,
           [EVENT_PROVIDER_ID]: {
-            ...(settings.providerSettings?.[EVENT_PROVIDER_ID] ?? {}),
+            ...settings.providerSettings?.[EVENT_PROVIDER_ID],
             apiKey: { value: trimmed },
           },
         },
@@ -51,10 +51,7 @@ export function EventKeyDialog() {
       <div className="w-full max-w-md rounded-lg bg-white dark:bg-gray-900 p-6 shadow-xl">
         <div className="flex items-center gap-3 mb-3">
           <img src={logo} alt="ARBI" className="h-12 w-12" />
-          <h2
-            className="text-xl font-semibold"
-            style={{ color: ARBI_NAVY }}
-          >
+          <h2 className="text-xl font-semibold" style={{ color: ARBI_NAVY }}>
             {EVENT_WELCOME_TITLE} to {EVENT_BRAND_NAME}
           </h2>
         </div>

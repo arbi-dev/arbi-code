@@ -12,7 +12,6 @@ import { registerIpcHandlers } from "./ipc/ipc_host";
 import dotenv from "dotenv";
 // @ts-ignore
 import started from "electron-squirrel-startup";
-import { updateElectronApp, UpdateSourceType } from "update-electron-app";
 import log from "electron-log";
 import {
   getSettingsFilePath,
