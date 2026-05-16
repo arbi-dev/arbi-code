@@ -20,6 +20,7 @@ import {
   SONNET_4_6,
   GEMINI_3_FLASH,
 } from "./language_model_constants";
+import { EVENT_MODE } from "../../event-config";
 
 const logger = log.scope("remote_language_model_catalog");
 
@@ -390,6 +391,17 @@ function triggerBackgroundRefresh(): void {
 }
 
 export async function getBuiltinLanguageModelCatalog(): Promise<BuiltinLanguageModelCatalog> {
+  // ARBI fork: event builds hide every builtin cloud provider and seed the
+  // event provider/models straight into the DB, so the remote Dyad catalog is
+  // vestigial. Short-circuit to the local fallback to drop the runtime
+  // dependency on api.dyad.sh entirely — no network, no startup latency/noise.
+  if (EVENT_MODE) {
+    if (!builtinCatalogCache) {
+      builtinCatalogCache = getFallbackCatalog();
+    }
+    return builtinCatalogCache;
+  }
+
   if (builtinCatalogCache && builtinCatalogCache.expiresAt > Date.now()) {
     logger.info("Returning cached language model catalog", {
       source: builtinCatalogCache.source,
