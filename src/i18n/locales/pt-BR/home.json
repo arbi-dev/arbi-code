@@ -66,9 +66,7 @@
     "accessLeadingModels": "Acesse os melhores modelos de IA com um único plano",
     "getDyadPro": "Obtenha o Dyad Pro",
     "upTo3xCheaper": "Até 3x mais barato",
-    "byUsingSmartContext": "usando o Contexto Inteligente",
-    "generateCode4x": "Gere código 4-10x mais rápido",
-    "withTurboModels": "com Turbo Models e Turbo Edits"
+    "byUsingSmartContext": "usando o Contexto Inteligente"
   },
   "setup": {
     "buildNewApp": "Criar um novo app",
@@ -579,6 +577,7 @@
       "failedSetBranch": "Falha ao mudar de branch: {{error}}",
       "failedUpdateEmailVerification": "Falha ao atualizar verificação de e-mail: {{error}}",
       "nextjsOnly": "A integração com Neon está disponível apenas para projetos Next.js.",
+      "unsupportedFramework": "A integração com Neon está disponível para projetos Next.js e Vite.",
       "noProjectsFound": "Nenhum projeto encontrado. Crie um novo projeto para começar.",
       "noBranchesFound": "Ainda não foram encontradas branches para este projeto Neon.",
       "preview": "Pré-visualização",

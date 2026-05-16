@@ -79,14 +79,14 @@
         "type": "function",
         "function": {
           "name": "copy_file",
-          "description": "Copy a file from one location to another. Can copy uploaded attachment files (from .dyad/media) into the codebase, or copy files within the codebase.",
+          "description": "Copy a file from one location to another. Can copy uploaded attachment files (attachments:<name> or .dyad/media paths) into the codebase, or copy files within the codebase.",
           "parameters": {
             "$schema": "http://json-schema.org/draft-07/schema#",
             "type": "object",
             "properties": {
               "from": {
                 "type": "string",
-                "description": "The source file path (can be a .dyad/media path or a path relative to the app root)"
+                "description": "The source file path (can be attachments:<name>, a .dyad/media path, or a path relative to the app root)"
               },
               "to": {
                 "type": "string",
@@ -180,7 +180,7 @@
         "type": "function",
         "function": {
           "name": "read_file",
-          "description": "Read the content of a file from the codebase.\n  \n- You have the capability to call multiple tools in a single response. It is always better to speculatively read multiple files as a batch that are potentially useful.",
+          "description": "Read the content of a file from the codebase or an attachment path such as attachments:notes.txt.\n  \n- You have the capability to call multiple tools in a single response. It is always better to speculatively read multiple files as a batch that are potentially useful.",
           "parameters": {
             "$schema": "http://json-schema.org/draft-07/schema#",
             "type": "object",
@@ -363,7 +363,7 @@
         "type": "function",
         "function": {
           "name": "enable_nitro",
-          "description": "Add a Nitro server layer to this Vite app so it can run secure server-side code\n(API routes, database clients, secrets, webhooks).\n\nWHEN TO CALL: Before writing any code under server/, before referencing DATABASE_URL\nor any server-only env var, or when the user asks for an API route, webhook, or\nserver-side compute. Skip for client-side fetch with public/anon keys, for use\ncases fully covered by Supabase (anon key + RLS), or when the user explicitly\nsays \"static only\" / \"no backend\".",
+          "description": "Add a Nitro server layer to this Vite app so it can run secure server-side code\n(API routes, database clients, secrets, webhooks).\n\nWHEN TO CALL: Before writing any code under server/, before referencing DATABASE_URL\nor any server-only env var, or when the user asks for an API route, webhook, or\nserver-side compute. Skip for client-side fetch with public/anon keys, for use\ncases fully covered by Supabase (anon key + RLS), or when the user explicitly\nsays \"static only\" / \"no backend\".\n\nDATABASE REQUESTS: If the user is asking for a database (or anything that needs\none — auth, persistence, CRUD, etc.) and no provider is set up yet, call\n`add_integration` FIRST and stop. Do NOT call `enable_nitro` in the same turn\n— the user must pick their provider first. Supabase makes Nitro unnecessary.\nNeon automatically sets up the Nitro server layer as part of its integration\nflow, so do NOT call `enable_nitro` after a Neon integration either — Nitro\nwill already be in place when the integration completes. Only call\n`enable_nitro` for non-database server-side needs (API routes, webhooks,\nserver-only secrets) when no provider is involved.",
           "parameters": {
             "$schema": "http://json-schema.org/draft-07/schema#",
             "type": "object",

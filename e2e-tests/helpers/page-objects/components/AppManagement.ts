@@ -25,10 +25,24 @@ export class AppManagement {
     return this.page.getByTestId(`app-list-item-${appName}`);
   }
 
+  async showAppList() {
+    await this.page.getByRole("link", { name: "Apps" }).hover();
+    const viewAllAppsButton = this.page.getByTestId("view-all-apps-button");
+    if (
+      await viewAllAppsButton.isVisible({ timeout: 1_000 }).catch(() => false)
+    ) {
+      await viewAllAppsButton.click();
+    }
+    await expect(this.page.getByTestId("app-list-container")).toBeVisible({
+      timeout: Timeout.MEDIUM,
+    });
+  }
+
   async isCurrentAppNameNone() {
     await expect(async () => {
-      await expect(this.getTitleBarAppNameButton()).toContainText(
-        "no app selected",
+      await expect(this.getTitleBarAppNameButton()).toHaveAttribute(
+        "data-app-name",
+        "",
       );
     }).toPass();
   }
@@ -36,13 +50,14 @@ export class AppManagement {
   async getCurrentAppName() {
     // Make sure to wait for the app to be set to avoid a race condition.
     await expect(async () => {
-      await expect(this.getTitleBarAppNameButton()).not.toContainText(
-        "no app selected",
+      await expect(this.getTitleBarAppNameButton()).not.toHaveAttribute(
+        "data-app-name",
+        "",
       );
     }).toPass();
-    return (await this.getTitleBarAppNameButton().textContent())?.replace(
-      "App: ",
-      "",
+    return (
+      (await this.getTitleBarAppNameButton().getAttribute("data-app-name")) ??
+      undefined
     );
   }
 
@@ -59,7 +74,8 @@ export class AppManagement {
   }
 
   async clickAppListItem({ appName }: { appName: string }) {
-    await this.page.getByTestId(`app-list-item-${appName}`).click();
+    await this.showAppList();
+    await this.getAppListItem({ appName }).click();
   }
 
   async clickOpenInChatButton() {

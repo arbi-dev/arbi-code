@@ -54,6 +54,25 @@ export class Settings {
     await this.page.getByRole("switch", { name: "Auto-update" }).click();
   }
 
+  async enableChatEventNotifications() {
+    await expect(
+      this.page.getByRole("heading", { level: 1, name: "Settings" }),
+    ).toBeVisible();
+
+    const label = this.page.getByText("Enable notifications", { exact: true });
+
+    // Find the switch button that is a sibling to the label by going to the parent container
+    const toggleButton = label.locator("xpath=..").getByRole("switch");
+    await expect(toggleButton).toBeAttached();
+
+    await toggleButton.scrollIntoViewIfNeeded();
+
+    const ariaChecked = await toggleButton.getAttribute("aria-checked");
+    if (ariaChecked !== "true") {
+      await label.click();
+    }
+  }
+
   async changeReleaseChannel(channel: "stable" | "beta") {
     await this.page.getByRole("combobox", { name: "Release Channel" }).click();
     await this.page
@@ -119,8 +138,13 @@ export class Settings {
       telemetryUserId: "[UUID]",
       lastShownReleaseNotesVersion: "[scrubbed]",
     };
+    const ignoredKeys = new Set(["lastKnownPerformance"]);
 
     for (const key of sortedKeys) {
+      if (ignoredKeys.has(key)) {
+        continue;
+      }
+
       const beforeValue = beforeSettings[key];
       const afterValue = afterSettings[key];
       const beforeExists = key in beforeSettings;
@@ -150,6 +174,12 @@ export class Settings {
     }
 
     expect(diffLines.join("\n")).toMatchSnapshot();
+  }
+
+  async scrollToSettingsSection(sectionId: string) {
+    const section = this.page.locator(`#${sectionId}`);
+    await expect(section).toBeVisible();
+    await section.scrollIntoViewIfNeeded();
   }
 
   async setUpTestProvider() {
