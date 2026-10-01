@@ -134,7 +134,7 @@ describe("settings actions (integration)", () => {
     expect(
       within(dialog).getByRole("heading", { name: "API key rejected" }),
     ).toBeTruthy();
-    expect(within(dialog).getByText(/Dyad rejected this API key/)).toBeTruthy();
+    expect(within(dialog).getByText(/ARBI Code rejected this API key/)).toBeTruthy();
     fireEvent.click(
       within(dialog).getByRole("button", { name: "Try another API key" }),
     );

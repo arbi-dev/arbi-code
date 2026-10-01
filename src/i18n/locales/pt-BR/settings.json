@@ -40,13 +40,13 @@
     "activeRuntime": "Ativo:",
     "nodeRuntimeActiveVersion": "Node {{version}} - {{source}}",
     "nodeRuntimeSource": {
-      "managed": "Gerenciado pelo Dyad",
+      "managed": "Gerenciado pelo ARBI Code",
       "custom": "Caminho personalizado",
       "system": "Sistema"
     },
     "systemNodeTooOld": "O Node.js do sistema é muito antigo",
     "noUsableNodeFound": "Nenhum Node.js utilizável encontrado",
-    "systemNodeTooOldDescription": "O Dyad requer Node.js do sistema v20 ou mais recente, ou um runtime gerenciado.",
+    "systemNodeTooOldDescription": "O ARBI Code requer Node.js do sistema v20 ou mais recente, ou um runtime gerenciado.",
     "managedRuntimeVersion": "Runtime gerenciado: Node {{version}}",
     "runtimeSystem": "Sistema",
     "runtimeManaged": "Gerenciado",
@@ -69,10 +69,10 @@
     "resetToSystemNodePath": "Restaurado para o caminho do Node.js do sistema",
     "resetNodePathFailed": "Falha ao restaurar o caminho do Node.js: {{message}}",
     "runtimePreferenceUpdateFailed": "Falha ao atualizar a preferência de runtime do Node.js: {{message}}",
-    "managedNodeInstalled": "Node.js gerenciado pelo Dyad instalado com sucesso",
-    "managedNodeInstallFailed": "Falha ao instalar Node.js gerenciado pelo Dyad",
-    "managedNodeRemoved": "Node.js gerenciado pelo Dyad removido",
-    "managedNodeRemoveFailed": "Falha ao remover Node.js gerenciado pelo Dyad"
+    "managedNodeInstalled": "Node.js gerenciado pelo ARBI Code instalado com sucesso",
+    "managedNodeInstallFailed": "Falha ao instalar Node.js gerenciado pelo ARBI Code",
+    "managedNodeRemoved": "Node.js gerenciado pelo ARBI Code removido",
+    "managedNodeRemoveFailed": "Falha ao remover Node.js gerenciado pelo ARBI Code"
   },
   "workflow": {
     "title": "Configurações de Fluxo de Trabalho",
@@ -133,7 +133,7 @@
     "privacyNotice": "Usamos dados de telemetria anônimos para melhorar o produto. Nenhum dado pessoal é coletado.",
     "acceptAndContinue": "Aceitar e Continuar",
     "shareAnonymousData": "Compartilhar dados anônimos?",
-    "helpImprove": "Ajude a melhorar o Dyad com dados de uso anônimos.",
+    "helpImprove": "Ajude a melhorar o ARBI Code com dados de uso anônimos.",
     "noCodeOrMessages": "Observação: isso não registra seu código nem suas mensagens.",
     "learnMore": "Saiba mais",
     "accept": "Aceitar",

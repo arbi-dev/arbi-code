@@ -7,6 +7,8 @@ import type { Template } from "@/shared/templates";
 import { Button } from "./ui/button";
 import { cn } from "@/lib/utils";
 import { showWarning } from "@/lib/toast";
+import { isUpstreamContentUrl } from "@/lib/upstream_links";
+import { HIDE_PRO_UPSELLS } from "@/arbi-config";
 
 interface TemplateCardProps {
   template: Template;
@@ -14,6 +16,8 @@ interface TemplateCardProps {
   onSelect: (templateId: string) => void;
   onCreateApp: () => void;
 }
+
+const hideUpstream = (url: string) => HIDE_PRO_UPSELLS && isUpstreamContentUrl(url);
 
 export const TemplateCard: React.FC<TemplateCardProps> = ({
   template,
@@ -58,7 +62,7 @@ export const TemplateCard: React.FC<TemplateCardProps> = ({
 
   const handleGithubClick = (e: React.MouseEvent) => {
     e.stopPropagation();
-    if (template.githubUrl) {
+    if (template.githubUrl && !hideUpstream(template.githubUrl)) {
       ipc.system.openExternalUrl(template.githubUrl);
     }
   };
@@ -79,13 +83,18 @@ export const TemplateCard: React.FC<TemplateCardProps> = ({
         `}
       >
         <div className="relative">
-          <img
-            src={template.imageUrl}
-            alt={template.title}
-            className={`w-full h-52 object-cover transition-opacity duration-300 group-hover:opacity-80 ${
-              isSelected ? "opacity-75" : ""
-            }`}
-          />
+          {HIDE_PRO_UPSELLS ? (
+            // ARBI fork: the thumbnails are hosted on Dyad's GitHub, so none are loaded.
+            <div className="h-24 w-full bg-muted" aria-hidden="true" />
+          ) : (
+            <img
+              src={template.imageUrl}
+              alt={template.title}
+              className={`w-full h-52 object-cover transition-opacity duration-300 group-hover:opacity-80 ${
+                isSelected ? "opacity-75" : ""
+              }`}
+            />
+          )}
           {isSelected && (
             <span className="absolute top-3 right-3 bg-blue-600 text-white text-xs font-bold px-3 py-1.5 rounded-md shadow-lg">
               Selected
@@ -123,7 +132,7 @@ export const TemplateCard: React.FC<TemplateCardProps> = ({
           <p className="text-sm text-gray-500 dark:text-gray-400 mb-3 h-10 overflow-y-auto">
             {template.description}
           </p>
-          {template.githubUrl && (
+          {template.githubUrl && !hideUpstream(template.githubUrl) && (
             <a
               className={`inline-flex items-center text-sm font-medium transition-colors duration-200 ${
                 isSelected

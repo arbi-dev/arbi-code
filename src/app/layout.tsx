@@ -52,6 +52,7 @@ import { useSyncDefaultChatMode } from "@/hooks/useSyncDefaultChatMode";
 import { PreviewErrorFacadeProvider } from "@/app_wiring/preview_error_facade";
 import { usePreviewErrorFacade } from "@/app_wiring/preview_error_facade";
 import { PackageManagerWarningProvider } from "@/package_manager_warnings/PackageManagerWarningProvider";
+import { HIDE_PRO_UPSELLS } from "@/arbi-config";
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   const { streamMessage } = useStreamChat({ hasChatId: false });
@@ -227,7 +228,7 @@ function RootLayoutContent({ children }: { children: ReactNode }) {
                 {/* Next to the Toaster on purpose: it is what keeps these
                     toasts from being painted underneath the native preview. */}
                 <PreviewNativeOverlayGuard />
-                <ReleaseNotesDialog />
+                {!HIDE_PRO_UPSELLS && <ReleaseNotesDialog />}
                 <ForceCloseDialog />
                 {/* Outside the sidebar, whose hover handlers would otherwise
                     hear the screenshot bar's pointer events through React's

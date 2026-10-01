@@ -1,6 +1,7 @@
 import { ModelPicker } from "./ModelPicker";
 import { ProModeSelector } from "./ProModeSelector";
 import { ChatModeSelector } from "./ChatModeSelector";
+import { HIDE_PRO_UPSELLS } from "@/arbi-config";
 
 export function ChatInputControls() {
   return (
@@ -8,7 +9,7 @@ export function ChatInputControls() {
       <ChatModeSelector />
       <div className="w-1.5"></div>
       <ModelPicker />
-      <ProModeSelector />
+      {!HIDE_PRO_UPSELLS && <ProModeSelector />}
     </div>
   );
 }

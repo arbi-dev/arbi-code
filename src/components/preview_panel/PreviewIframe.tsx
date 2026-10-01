@@ -109,6 +109,7 @@ import {
   type ScreenshotAdapterEvent,
 } from "@/screenshot/useScreenshot";
 import { useAppRunRemoteManager } from "@/app_run/AppRunRemoteProvider";
+import { HIDE_PRO_UPSELLS } from "@/arbi-config";
 
 // Preview iframe component
 export const PreviewIframe = ({
@@ -1141,6 +1142,7 @@ export const PreviewIframe = ({
                   : `Select component (${isMac ? "⌘ + ⇧ + C" : "Ctrl + ⇧ + C"})`}
               </TooltipContent>
             </Tooltip>
+            {!HIDE_PRO_UPSELLS && (
             <Tooltip>
               <TooltipTrigger
                 render={
@@ -1184,6 +1186,7 @@ export const PreviewIframe = ({
                     : "Activate annotator"}
               </TooltipContent>
             </Tooltip>
+            )}
             {canRecordTests && (
               <Tooltip>
                 <TooltipTrigger
@@ -1723,7 +1726,7 @@ function RecordingSetupOverlay({
         </p>
         <p className="text-sm text-muted-foreground">
           {recorder.phase === "starting" || recorder.phase === "authenticating"
-            ? "Dyad is preparing an isolated environment for your recording — hold off on interacting with the preview until it's ready."
+            ? "ARBI Code is preparing an isolated environment for your recording — hold off on interacting with the preview until it's ready."
             : "Hold off on interacting with the preview until this finishes."}
         </p>
       </div>

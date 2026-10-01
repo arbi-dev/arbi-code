@@ -8,7 +8,7 @@ import { db } from "@/db";
 import { apps, chats } from "@/db/schema";
 import { DyadError, DyadErrorKind } from "@/errors/dyad_error";
 import { getAllTemplates } from "../utils/template_utils";
-import { localTemplatesData } from "../../shared/templates";
+import { offeredLocalTemplates } from "../../shared/templates";
 import { createTypedHandler } from "./base";
 import { templateContracts } from "../types/templates";
 import { getDyadAppPath } from "../../paths/paths";
@@ -149,7 +149,7 @@ export function registerTemplateHandlers() {
       return templates;
     } catch (error) {
       logger.error("Error fetching templates:", error);
-      return localTemplatesData;
+      return offeredLocalTemplates;
     }
   });
 

@@ -30,8 +30,18 @@ import { useSettings } from "@/hooks/useSettings";
 import { isDyadProEnabled } from "@/lib/schemas";
 import { queryKeys } from "@/lib/queryKeys";
 import { ProviderIcon } from "./ProviderIcon";
+import { HIDE_PRO_UPSELLS } from "@/arbi-config";
 
-export function SetupBanner({
+export function SetupBanner(props: {
+  variant?: "inline" | "dialog";
+  forceShow?: boolean;
+}) {
+  // ARBI fork: setup is the ARBI key dialog; this banner is Dyad's provider / Pro-trial onboarding.
+  if (HIDE_PRO_UPSELLS) return null;
+  return <SetupBannerContent {...props} />;
+}
+
+function SetupBannerContent({
   variant = "inline",
   forceShow = false,
 }: {

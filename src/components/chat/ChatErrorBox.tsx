@@ -22,6 +22,8 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { Button } from "@/components/ui/button";
+import { isUpstreamContentUrl } from "@/lib/upstream_links";
+import { HIDE_PRO_UPSELLS } from "@/arbi-config";
 
 export function ChatErrorBox({
   onDismiss,
@@ -287,6 +289,8 @@ function ExternalLink({
   variant?: "primary" | "secondary";
   icon?: React.ReactNode;
 }) {
+  // ARBI fork: no upgrade prompts or docs links into Dyad; the error text alone is shown.
+  if (HIDE_PRO_UPSELLS && isUpstreamContentUrl(href)) return null;
   const baseClasses =
     "cursor-pointer inline-flex items-center gap-1.5 rounded-md px-3 py-1.5 text-sm font-medium shadow-sm focus:outline-none focus:ring-2";
   const primaryClasses =

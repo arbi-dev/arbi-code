@@ -268,7 +268,7 @@ const askForRetake = async () => {
 /** A screenshot, asked for and captured, back on the form. */
 const addScreenshot = async () => {
   await askForScreenshot();
-  return screen.findByAltText("Screenshot of the Dyad window");
+  return screen.findByAltText("Screenshot of the ARBI Code window");
 };
 
 const fileIt = async () => {
@@ -411,7 +411,7 @@ describe("HelpDialog report flow", () => {
 
     submit();
     await askForScreenshot();
-    await screen.findByAltText("Screenshot of the Dyad window");
+    await screen.findByAltText("Screenshot of the ARBI Code window");
     submit();
 
     const blocked = posthogClient.capture.mock.calls.filter(
@@ -999,7 +999,7 @@ describe("HelpDialog disclosures", () => {
         ).disabled,
       ).toBe(false),
     );
-    expect(screen.queryByAltText("Screenshot of the Dyad window")).toBeNull();
+    expect(screen.queryByAltText("Screenshot of the ARBI Code window")).toBeNull();
   });
 
   it("asks main again on a retry rather than assuming the clipboard", async () => {
@@ -1247,7 +1247,7 @@ describe("HelpDialog disclosures", () => {
     fireEvent.click(screen.getByText("reopen-help"));
 
     await waitFor(() =>
-      expect(screen.queryByAltText("Screenshot of the Dyad window")).toBeNull(),
+      expect(screen.queryByAltText("Screenshot of the ARBI Code window")).toBeNull(),
     );
     // It must not simply vanish between one visit and the next.
     expect(mocks.showError).toHaveBeenCalledWith(
@@ -1298,7 +1298,7 @@ describe("HelpDialog disclosures", () => {
     submit();
 
     await waitFor(() =>
-      expect(screen.queryByAltText("Screenshot of the Dyad window")).toBeNull(),
+      expect(screen.queryByAltText("Screenshot of the ARBI Code window")).toBeNull(),
     );
   });
 
@@ -1335,7 +1335,7 @@ describe("HelpDialog disclosures", () => {
     );
 
     await waitFor(() =>
-      expect(screen.queryByAltText("Screenshot of the Dyad window")).toBeNull(),
+      expect(screen.queryByAltText("Screenshot of the ARBI Code window")).toBeNull(),
     );
   });
 
@@ -1597,7 +1597,7 @@ describe("HelpDialog disclosures", () => {
 
     // The dialog closes and reopens for the capture.
     await askForScreenshot();
-    await screen.findByAltText("Screenshot of the Dyad window");
+    await screen.findByAltText("Screenshot of the ARBI Code window");
 
     submit();
     await waitFor(() => expect(mocks.openExternalUrl).toHaveBeenCalled());
@@ -1619,7 +1619,7 @@ describe("HelpDialog disclosures", () => {
     ).toBe(true);
 
     await askForScreenshot();
-    await screen.findByAltText("Screenshot of the Dyad window");
+    await screen.findByAltText("Screenshot of the ARBI Code window");
 
     // The reporter agreed to send the session; it must not quietly withdraw.
     const box = screen.getByRole("checkbox", { name: "Chat session" });
@@ -1716,7 +1716,7 @@ describe("HelpDialog screenshot", () => {
     await addScreenshot();
 
     fireEvent.click(screen.getByRole("button", { name: /Remove/ }));
-    expect(screen.queryByAltText("Screenshot of the Dyad window")).toBeNull();
+    expect(screen.queryByAltText("Screenshot of the ARBI Code window")).toBeNull();
 
     submit();
     await waitFor(() => expect(mocks.openExternalUrl).toHaveBeenCalled());
@@ -1739,7 +1739,7 @@ describe("HelpDialog screenshot", () => {
     fireEvent.click(screen.getByRole("button", { name: "Back" }));
     fireEvent.click(await screen.findByText("Report a Bug"));
 
-    expect(screen.queryByAltText("Screenshot of the Dyad window")).toBeNull();
+    expect(screen.queryByAltText("Screenshot of the ARBI Code window")).toBeNull();
 
     fireEvent.change(await screen.findByLabelText(/What happened/), {
       target: { value: "a different problem" },
@@ -1771,7 +1771,7 @@ describe("HelpDialog screenshot", () => {
     await waitFor(() =>
       expect(screen.getByLabelText(/What happened/)).toBeTruthy(),
     );
-    expect(screen.queryByAltText("Screenshot of the Dyad window")).toBeNull();
+    expect(screen.queryByAltText("Screenshot of the ARBI Code window")).toBeNull();
   });
 
   it("leaves the screenshot button usable after a discarded capture", async () => {
@@ -1890,7 +1890,7 @@ describe("HelpDialog screenshot", () => {
       expect(
         (
           screen.getByAltText(
-            "Screenshot of the Dyad window",
+            "Screenshot of the ARBI Code window",
           ) as HTMLImageElement
         ).src,
       ).toContain("BBBB"),
@@ -2029,7 +2029,7 @@ describe("HelpDialog screenshot", () => {
       expect(
         (
           screen.getByAltText(
-            "Screenshot of the Dyad window",
+            "Screenshot of the ARBI Code window",
           ) as HTMLImageElement
         ).src,
       ).toContain("BBBB"),
@@ -2066,7 +2066,7 @@ describe("HelpDialog screenshot", () => {
     await addScreenshot();
 
     const hint = screen
-      .getByAltText("Screenshot of the Dyad window")
+      .getByAltText("Screenshot of the ARBI Code window")
       .parentElement!.querySelector("p.text-xs")!;
 
     // The sentence has to read as one sentence, with the keys marked up.
@@ -2110,7 +2110,7 @@ describe("HelpDialog screenshot", () => {
     // The first image is still on the clipboard and still in main, so losing
     // it to a failed retake would throw away something that works.
     expect(
-      await screen.findByAltText("Screenshot of the Dyad window"),
+      await screen.findByAltText("Screenshot of the ARBI Code window"),
     ).toBeTruthy();
     await fileIt();
     expect(bodyOfOpenedIssue()).toContain("Screenshot status: captured");
@@ -2162,7 +2162,7 @@ describe("HelpDialog screenshot", () => {
 
     // The image is gone from main, so the form must not keep offering it.
     await waitFor(() =>
-      expect(screen.queryByAltText("Screenshot of the Dyad window")).toBeNull(),
+      expect(screen.queryByAltText("Screenshot of the ARBI Code window")).toBeNull(),
     );
   });
 
@@ -2218,7 +2218,7 @@ describe("HelpDialog screenshot", () => {
 
     // The mirror of the failed-restore case: a succeeded restore also drops
     // the image in main, and must not take a newer report's with it.
-    expect(screen.getByAltText("Screenshot of the Dyad window")).toBeTruthy();
+    expect(screen.getByAltText("Screenshot of the ARBI Code window")).toBeTruthy();
     expect(mocks.showError).not.toHaveBeenCalledWith(
       "Your screenshot could no longer be restored, so it was removed from this report.",
     );
@@ -2261,7 +2261,7 @@ describe("HelpDialog screenshot", () => {
 
     // The failed restore belongs to a report that is gone; the screenshot on
     // screen belongs to the one being written now.
-    expect(screen.getByAltText("Screenshot of the Dyad window")).toBeTruthy();
+    expect(screen.getByAltText("Screenshot of the ARBI Code window")).toBeTruthy();
   });
 
   it("clears a capture flag stranded by a report that ended", async () => {
@@ -2358,7 +2358,7 @@ describe("HelpDialog screenshot bar", () => {
 
     release({ dataUrl: "data:image/png;base64,AAAA", captureId: "capture-1" });
     expect(
-      await screen.findByAltText("Screenshot of the Dyad window"),
+      await screen.findByAltText("Screenshot of the ARBI Code window"),
     ).toBeTruthy();
   });
 
@@ -2370,7 +2370,7 @@ describe("HelpDialog screenshot bar", () => {
 
     expect(await screen.findByDisplayValue("half-written report")).toBeTruthy();
     expect(captureBar()).toBeNull();
-    expect(screen.queryByAltText("Screenshot of the Dyad window")).toBeNull();
+    expect(screen.queryByAltText("Screenshot of the ARBI Code window")).toBeNull();
     expect(mocks.takeScreenshot).not.toHaveBeenCalled();
     expect(posthogClient.capture).toHaveBeenCalledWith(
       "screenshot-prompt:bar-cancelled",
@@ -2448,7 +2448,7 @@ describe("HelpDialog screenshot bar", () => {
 
     await captureFromBar();
     expect(
-      await screen.findByAltText("Screenshot of the Dyad window"),
+      await screen.findByAltText("Screenshot of the ARBI Code window"),
     ).toBeTruthy();
     expect(mocks.takeScreenshot).toHaveBeenCalledTimes(2);
   });
@@ -2580,7 +2580,7 @@ describe("HelpDialog closing step", () => {
     expect(body.textContent).toContain("edit the issue and paste it there");
     expect(body.textContent).toContain("you are all set");
     // What is on the clipboard, so the reporter knows what they are pasting.
-    expect(screen.getByAltText("Screenshot of the Dyad window")).toBeTruthy();
+    expect(screen.getByAltText("Screenshot of the ARBI Code window")).toBeTruthy();
     expect(screen.queryByLabelText(/What happened/)).toBeNull();
   });
 
@@ -2641,6 +2641,6 @@ describe("HelpDialog closing step", () => {
       /What happened/,
     )) as HTMLTextAreaElement;
     expect(field.value).toBe("");
-    expect(screen.queryByAltText("Screenshot of the Dyad window")).toBeNull();
+    expect(screen.queryByAltText("Screenshot of the ARBI Code window")).toBeNull();
   });
 });

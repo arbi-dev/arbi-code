@@ -1,5 +1,6 @@
 import log from "electron-log";
 import { z } from "zod";
+import { HIDE_PRO_UPSELLS } from "../../arbi-config";
 
 const logger = log.scope("remote_desktop_config");
 
@@ -37,6 +38,7 @@ function getRemoteDesktopConfigUrl() {
 }
 
 async function fetchRemoteDesktopConfig(): Promise<RemoteDesktopConfig | null> {
+  if (HIDE_PRO_UPSELLS) return null; // ARBI fork: no Dyad-hosted config
   const response = await fetch(getRemoteDesktopConfigUrl(), {
     signal: AbortSignal.timeout(REMOTE_DESKTOP_CONFIG_TIMEOUT_MS),
   });

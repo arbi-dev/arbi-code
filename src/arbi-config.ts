@@ -54,6 +54,16 @@ export const ARBI_MODELS: ReadonlyArray<{
 // Local providers (Ollama / LM Studio) are kept so power users can still go off-grid.
 export const HIDE_OTHER_PROVIDERS = true;
 
+// When true, every Dyad Pro / Dyad Free upsell and Pro-only control is hidden. This fork has no Dyad Pro
+// backend, so those controls could only be dead ends that send users to dyad.sh.
+//
+// Upstream's unit tests exercise those Dyad features, so under Vitest (MODE "test") they stay on and the
+// suite keeps tracking upstream; ARBI-specific tests turn this on with vi.mock("@/arbi-config", ...).
+// (`process` does not exist in the packaged renderer, hence the typeof guard.)
+export const HIDE_PRO_UPSELLS = !(
+  typeof process !== "undefined" && process.env?.VITEST === "true"
+);
+
 // First-run modal copy.
 export const ARBI_BRAND_NAME = "ARBI Code";
 export const ARBI_WELCOME_TITLE = "Welcome";

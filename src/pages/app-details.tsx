@@ -67,6 +67,7 @@ import { useAppCollections } from "@/hooks/useAppCollections";
 import { AssignAppsToCollectionDialog } from "@/components/AssignAppsToCollectionDialog";
 import { useTranslation } from "react-i18next";
 import { queryKeys } from "@/lib/queryKeys";
+import { HIDE_PRO_UPSELLS } from "@/arbi-config";
 
 function UnavailableIntegrationCard({
   provider,
@@ -627,7 +628,8 @@ export default function AppDetailsPage() {
             )}
           </div>
           {/* When providerFilter is set, show the selected connector only if the other provider isn't already active */}
-          {providerFilter === "supabase" &&
+          {!HIDE_PRO_UPSELLS &&
+            providerFilter === "supabase" &&
             appId &&
             !selectedApp?.neonProjectId && <SupabaseConnector appId={appId} />}
           {providerFilter === "supabase" &&
@@ -635,7 +637,8 @@ export default function AppDetailsPage() {
             selectedApp?.neonProjectId && (
               <UnavailableIntegrationCard provider="supabase" />
             )}
-          {providerFilter === "neon" &&
+          {!HIDE_PRO_UPSELLS &&
+            providerFilter === "neon" &&
             appId &&
             !selectedApp?.supabaseProjectId && <NeonConnector appId={appId} />}
           {providerFilter === "neon" &&

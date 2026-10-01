@@ -32,6 +32,7 @@ import {
   useFirstPromptSaga,
 } from "@/first_prompt/FirstPromptProvider";
 import type { UserSettings } from "@/lib/schemas";
+import { HIDE_PRO_UPSELLS } from "@/arbi-config";
 
 export const TitleBar = () => {
   const [selectedAppId] = useAtom(selectedAppIdAtom);
@@ -138,7 +139,9 @@ export const TitleBar = () => {
             </TooltipTrigger>
             <TooltipContent>{displayText}</TooltipContent>
           </Tooltip>
-          {isDyadPro && <DyadProButton isDyadProEnabled={isDyadProEnabled} />}
+          {!HIDE_PRO_UPSELLS && isDyadPro && (
+            <DyadProButton isDyadProEnabled={isDyadProEnabled} />
+          )}
         </div>
 
         <div className="flex-1 min-w-0 overflow-hidden self-end">
@@ -148,7 +151,7 @@ export const TitleBar = () => {
         {showWindowControls && <WindowsControls />}
       </div>
 
-      <SubscriptionConnectionStatus />
+      {!HIDE_PRO_UPSELLS && <SubscriptionConnectionStatus />}
       <DyadProSuccessDialog
         isOpen={isSuccessDialogOpen}
         onClose={() => setIsSuccessDialogOpen(false)}

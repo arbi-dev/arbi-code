@@ -59,14 +59,16 @@ ${debugInfo.logs.slice(-3_500) || "No logs available"}
       const encodedTitle = encodeURIComponent(
         "[bug] Error in ARBI Code application",
       );
-      const githubIssueUrl = `https://github.com/dyad-sh/dyad/issues/new?title=${encodedTitle}&labels=bug,filed-from-app,client-error&body=${encodedBody}`;
+      const githubIssueUrl = `https://github.com/arbi-dev/arbi-code/issues/new?title=${encodedTitle}&labels=bug,filed-from-app,client-error&body=${encodedBody}`;
 
       // Open the pre-filled GitHub issue page
       await ipc.system.openExternalUrl(githubIssueUrl);
     } catch (err) {
       console.error("Failed to prepare bug report:", err);
       // Fallback to opening the regular GitHub issue page
-      ipc.system.openExternalUrl("https://github.com/dyad-sh/dyad/issues/new");
+      ipc.system.openExternalUrl(
+        "https://github.com/arbi-dev/arbi-code/issues/new",
+      );
     } finally {
       setIsLoading(false);
     }

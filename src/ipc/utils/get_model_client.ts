@@ -58,6 +58,7 @@ import { createCodexSubscriptionModel } from "./codex_subscription_provider";
 import { ClaudeCodeModel } from "../services/claude_code/model";
 import { resolveSubscriptionModel } from "../services/resolve_subscription_model";
 import { subscriptionBillingKey } from "../services/subscription_billing";
+import { HIDE_PRO_UPSELLS } from "../../arbi-config";
 
 // The test-only fetch seam lives in ./test_fetch_override (dependency-free,
 // so secondary factories can use it without import cycles). Re-exported here
@@ -235,7 +236,7 @@ export async function getModelClient(
     : undefined;
   const isLocalProvider = ["ollama", "lmstudio"].includes(model.provider);
   const isDyadProEnabledForRequest = Boolean(
-    dyadApiKey && settings.enableDyadPro,
+    !HIDE_PRO_UPSELLS && dyadApiKey && settings.enableDyadPro,
   );
   if (connection === "pro" && !isDyadProEnabledForRequest)
     throw new DyadError(

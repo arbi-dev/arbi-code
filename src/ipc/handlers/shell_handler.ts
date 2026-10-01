@@ -6,6 +6,8 @@ import { IS_TEST_BUILD } from "../utils/test_utils";
 import { isFileWithinAnyDyadMediaDir } from "../utils/media_path_utils";
 import { DyadError, DyadErrorKind } from "@/errors/dyad_error";
 import { registerDyadProtocolLinux } from "../../main/linux_protocol_registration";
+import { isUpstreamContentUrl } from "../../lib/upstream_links";
+import { HIDE_PRO_UPSELLS } from "../../arbi-config";
 
 const logger = log.scope("shell_handlers");
 const handle = createLoggedHandler(logger);
@@ -53,6 +55,12 @@ export function registerShellHandlers() {
     }
     if (!url.startsWith("http://") && !url.startsWith("https://")) {
       throw new Error("Attempted to open invalid or non-http URL: " + url);
+    }
+    // ARBI fork: no links into Dyad's site, docs, pricing or community pages (the credit link and the
+    // Neon/Supabase sign-in proxies are the only exceptions; see isUpstreamContentUrl).
+    if (HIDE_PRO_UPSELLS && isUpstreamContentUrl(url)) {
+      logger.warn("Blocked a link to Dyad:", url);
+      return;
     }
     // In E2E test mode, skip actually opening external URLs to avoid browser windows
     if (IS_TEST_BUILD) {

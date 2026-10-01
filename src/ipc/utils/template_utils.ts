@@ -1,9 +1,10 @@
 import {
   type Template,
   type ApiTemplate,
-  localTemplatesData,
+  offeredLocalTemplates,
 } from "../../shared/templates";
 import log from "electron-log";
+import { HIDE_PRO_UPSELLS } from "../../arbi-config";
 
 const logger = log.scope("template_utils");
 
@@ -35,6 +36,9 @@ export async function fetchApiTemplates(): Promise<Template[]> {
     return apiTemplatesFetchPromise;
   }
 
+  // ARBI fork: the hosted catalog is Dyad's; only the bundled templates are offered.
+  if (HIDE_PRO_UPSELLS) return [];
+
   // Start new fetch
   apiTemplatesFetchPromise = (async (): Promise<Template[]> => {
     try {
@@ -46,7 +50,15 @@ export async function fetchApiTemplates(): Promise<Template[]> {
       }
 
       const apiTemplates: ApiTemplate[] = await response.json();
-      const convertedTemplates = apiTemplates.map(convertApiTemplate);
+      // The catalog is hosted and worded for Dyad; show this product's name instead.
+      const convertedTemplates = apiTemplates.map((apiTemplate) => {
+        const template = convertApiTemplate(apiTemplate);
+        return {
+          ...template,
+          title: template.title.replace(/\bDyad\b/g, "ARBI Code"),
+          description: template.description.replace(/\bDyad\b/g, "ARBI Code"),
+        };
+      });
 
       // Cache the result
       apiTemplatesCache = convertedTemplates;
@@ -65,7 +77,7 @@ export async function fetchApiTemplates(): Promise<Template[]> {
 // Get all templates (local + API)
 export async function getAllTemplates(): Promise<Template[]> {
   const apiTemplates = await fetchApiTemplates();
-  return [...localTemplatesData, ...apiTemplates];
+  return [...offeredLocalTemplates, ...apiTemplates];
 }
 
 export async function getTemplateOrThrow(

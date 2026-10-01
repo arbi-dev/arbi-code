@@ -10,6 +10,7 @@ import { FREE_AGENT_QUOTA_LIMIT } from "@/lib/free_agent_quota_limit";
 import fetch from "node-fetch";
 import { withLock } from "../utils/lock_utils";
 import { shouldSimulateFreeAgentQuotaExceeded } from "../utils/free_agent_quota_fixture";
+import { HIDE_PRO_UPSELLS } from "../../arbi-config";
 
 const logger = log.scope("free_agent_quota_handlers");
 const FREE_AGENT_QUOTA_ADMISSION_LOCK = "free-agent-quota-admission";
@@ -37,6 +38,7 @@ async function getServerTime(): Promise<number> {
       SERVER_TIME_TIMEOUT_MS,
     );
 
+    if (HIDE_PRO_UPSELLS) return Date.now(); // ARBI fork: never ask a Dyad server for the time
     const response = await fetch("https://api.dyad.sh/health", {
       method: "HEAD",
       signal: controller.signal,

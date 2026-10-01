@@ -36,6 +36,7 @@ import { useVoiceToText } from "@/hooks/useVoiceToText";
 import { useUserBudgetInfo } from "@/hooks/useUserBudgetInfo";
 import { showError } from "@/lib/toast";
 import { ipc } from "@/ipc/types";
+import { HIDE_PRO_UPSELLS } from "@/arbi-config";
 
 export function HomeChatInput({
   onSubmit,
@@ -223,7 +224,7 @@ export function HomeChatInput({
                       : "Voice to text"}
                 </TooltipContent>
               </Tooltip>
-            ) : (
+            ) : HIDE_PRO_UPSELLS ? null : (
               <Tooltip>
                 <TooltipTrigger
                   render={

@@ -28,6 +28,7 @@ import {
   isFreeProBuildModeCombination,
   isFreeProModel,
 } from "@/lib/freeProModel";
+import { HIDE_PRO_UPSELLS } from "@/arbi-config";
 
 export function ChatModeSelector() {
   const routerState = useRouterState();
@@ -159,7 +160,7 @@ export function ChatModeSelector() {
               </span>
             </div>
           </SelectItem>
-          {!isProEnabled && !isSubscription && (
+          {!HIDE_PRO_UPSELLS && !isProEnabled && !isSubscription && (
             <SelectItem value="local-agent" disabled={isQuotaExceeded}>
               <div className="flex flex-col items-start">
                 <div className="flex items-center gap-1.5">

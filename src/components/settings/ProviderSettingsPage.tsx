@@ -232,7 +232,7 @@ export function ProviderSettingsPage({ provider }: ProviderSettingsPageProps) {
           setApiKeyValidationDialog({
             message:
               error?.message ||
-              `Dyad could not verify this ${providerDisplayName} API key.`,
+              `ARBI Code could not verify this ${providerDisplayName} API key.`,
             apiKey: normalizedValue,
             allowKeepInvalidKey: true,
             errorKind: getErrorKind(error),
@@ -309,7 +309,7 @@ export function ProviderSettingsPage({ provider }: ProviderSettingsPageProps) {
       setApiKeyValidationDialog({
         message:
           error?.message ||
-          `Dyad could not verify this ${providerDisplayName} API key.`,
+          `ARBI Code could not verify this ${providerDisplayName} API key.`,
         apiKey: normalizedValue,
         allowKeepInvalidKey: false,
         errorKind: getErrorKind(error),
@@ -500,7 +500,7 @@ export function ProviderSettingsPage({ provider }: ProviderSettingsPageProps) {
                   AI access is ready
                 </h2>
                 <p className="mt-1 text-sm text-green-800/80 dark:text-green-200/80">
-                  You can now start building with Dyad.
+                  You can now start building with ARBI Code.
                 </p>
               </div>
             </div>

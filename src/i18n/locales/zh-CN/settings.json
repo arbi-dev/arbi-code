@@ -40,13 +40,13 @@
     "activeRuntime": "当前：",
     "nodeRuntimeActiveVersion": "Node {{version}} - {{source}}",
     "nodeRuntimeSource": {
-      "managed": "Dyad 托管",
+      "managed": "ARBI Code 托管",
       "custom": "自定义路径",
       "system": "系统"
     },
     "systemNodeTooOld": "系统 Node.js 版本过旧",
     "noUsableNodeFound": "未找到可用的 Node.js",
-    "systemNodeTooOldDescription": "Dyad 需要系统 Node.js v20 或更高版本，或使用托管运行时。",
+    "systemNodeTooOldDescription": "ARBI Code 需要系统 Node.js v20 或更高版本，或使用托管运行时。",
     "managedRuntimeVersion": "托管运行时：Node {{version}}",
     "runtimeSystem": "系统",
     "runtimeManaged": "托管",
@@ -69,10 +69,10 @@
     "resetToSystemNodePath": "已恢复为系统 Node.js 路径",
     "resetNodePathFailed": "恢复 Node.js 路径失败：{{message}}",
     "runtimePreferenceUpdateFailed": "更新 Node.js 运行时偏好失败：{{message}}",
-    "managedNodeInstalled": "Dyad 托管 Node.js 已成功安装",
-    "managedNodeInstallFailed": "安装 Dyad 托管 Node.js 失败",
-    "managedNodeRemoved": "已移除 Dyad 托管 Node.js",
-    "managedNodeRemoveFailed": "移除 Dyad 托管 Node.js 失败"
+    "managedNodeInstalled": "ARBI Code 托管 Node.js 已成功安装",
+    "managedNodeInstallFailed": "安装 ARBI Code 托管 Node.js 失败",
+    "managedNodeRemoved": "已移除 ARBI Code 托管 Node.js",
+    "managedNodeRemoveFailed": "移除 ARBI Code 托管 Node.js 失败"
   },
   "workflow": {
     "title": "工作流设置",
@@ -133,7 +133,7 @@
     "privacyNotice": "我们使用匿名遥测数据来改进产品。不会收集个人数据。",
     "acceptAndContinue": "接受并继续",
     "shareAnonymousData": "共享匿名数据？",
-    "helpImprove": "通过匿名使用数据帮助改进 Dyad。",
+    "helpImprove": "通过匿名使用数据帮助改进 ARBI Code。",
     "noCodeOrMessages": "注意：这不会记录你的代码或消息。",
     "learnMore": "了解更多",
     "accept": "接受",

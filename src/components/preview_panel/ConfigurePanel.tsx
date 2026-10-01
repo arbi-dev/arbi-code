@@ -32,6 +32,7 @@ import { NeonConnector } from "@/components/NeonConnector";
 import { useIntegrationContinue } from "@/hooks/useIntegrationContinue";
 import { useTranslation } from "react-i18next";
 import { queryKeys } from "@/lib/queryKeys";
+import { HIDE_PRO_UPSELLS } from "@/arbi-config";
 
 const AppCommandsTitle = () => (
   <div className="flex items-center gap-2">
@@ -355,7 +356,7 @@ const IntegrationSection = () => {
           </CardTitle>
         </CardHeader>
         <CardContent className="space-y-4">
-          {displayProvider === "supabase" ? (
+          {HIDE_PRO_UPSELLS ? null : displayProvider === "supabase" ? (
             <SupabaseConnector appId={selectedAppId} />
           ) : (
             <NeonConnector appId={selectedAppId} />

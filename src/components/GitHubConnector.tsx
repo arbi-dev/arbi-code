@@ -48,6 +48,7 @@ import {
   useConnectionFlow,
   useUnsolicitedConnectionReturn,
 } from "@/hooks/useConnectionFlow";
+import { HIDE_PRO_UPSELLS } from "@/arbi-config";
 
 interface GitHubConnectorProps {
   appId: number | null;
@@ -72,6 +73,8 @@ interface LinkedGitHubRepo {
 }
 
 function GitHubTroubleshootingLink({ className = "" }: { className?: string }) {
+  // ARBI fork: the troubleshooting guide lives on Dyad's site, so there is no link to show.
+  if (HIDE_PRO_UPSELLS) return null;
   return (
     <a
       href="https://www.dyad.sh/docs/integrations/github#troubleshooting"
@@ -452,7 +455,7 @@ function ConnectedGitHubConnector({
                   <p className="sr-only">
                     {(
                       conflictVerificationError ??
-                      "Dyad couldn't check the repository."
+                      "ARBI Code couldn't check the repository."
                     )
                       .split("\n", 1)[0]
                       .slice(0, 240)}
@@ -465,7 +468,7 @@ function ConnectedGitHubConnector({
                   <GitHubOperationError
                     message={
                       conflictVerificationError ??
-                      "Dyad couldn't check the repository."
+                      "ARBI Code couldn't check the repository."
                     }
                   />
                 </div>

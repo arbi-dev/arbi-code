@@ -1,3 +1,5 @@
+import { HIDE_PRO_UPSELLS } from "../arbi-config";
+
 export interface Template {
   id: string;
   title: string;
@@ -65,3 +67,11 @@ export const localTemplatesData: Template[] = [
     requiresNeon: true,
   },
 ];
+
+/**
+ * The bundled templates this build offers. ARBI fork: Next.js, Nitro and Portal are cloned from Dyad's GitHub
+ * organisation at creation time, so only the template bundled in `scaffold/` is offered.
+ */
+export const offeredLocalTemplates: Template[] = HIDE_PRO_UPSELLS
+  ? localTemplatesData.filter((template) => !template.githubUrl)
+  : localTemplatesData;

@@ -863,7 +863,7 @@ async function installManagedNodeInternal(
   const artifact = getManagedNodeArtifact();
   if (!artifact) {
     throw new ManagedNodeInstallError(
-      "Dyad-managed Node.js is currently available on Windows and macOS.",
+      "ARBI Code-managed Node.js is currently available on Windows and macOS.",
       "unsupported",
     );
   }

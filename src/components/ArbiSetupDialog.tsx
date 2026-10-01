@@ -6,12 +6,9 @@ import {
   ARBI_BRAND_NAME,
   ARBI_WELCOME_TITLE,
   ARBI_WELCOME_BODY,
-  ARBI_CREDIT_LINE,
-  UPSTREAM_URL,
   ARBI_BLUE,
   ARBI_NAVY,
 } from "@/arbi-config";
-import { ipc } from "@/ipc/types";
 // @ts-ignore
 import logo from "../../assets/logo.svg";
 
@@ -83,16 +80,6 @@ export function ArbiSetupDialog() {
         >
           {saving ? "Saving..." : "Continue"}
         </button>
-        <p className="mt-4 text-center text-xs text-gray-400 dark:text-gray-500">
-          {ARBI_CREDIT_LINE}{" "}
-          <button
-            type="button"
-            className="underline hover:text-gray-600 dark:hover:text-gray-300"
-            onClick={() => ipc.system.openExternalUrl(UPSTREAM_URL)}
-          >
-            Learn more
-          </button>
-        </p>
       </div>
     </div>
   );

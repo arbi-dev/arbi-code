@@ -28,6 +28,7 @@ export {
   UserInfoResponseSchema,
   type UserInfoResponse,
 } from "../services/user_budget_service";
+import { HIDE_PRO_UPSELLS } from "../../arbi-config";
 
 const logger = log.scope("pro_handlers");
 const handle = createLoggedHandler(logger);
@@ -177,6 +178,8 @@ export function registerProHandlers() {
     if (IS_TEST_BUILD && !process.env.DYAD_SUBSCRIPTION_STATUS_URL) {
       return null;
     }
+
+    if (HIDE_PRO_UPSELLS) return null; // ARBI fork: no Dyad subscription service
 
     try {
       const response = await fetch(getSubscriptionStatusUrl(), {

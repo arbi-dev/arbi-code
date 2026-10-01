@@ -395,8 +395,8 @@ export function FirstPromptProvider({
             </DialogTitle>
             <DialogDescription>
               {hasConfiguredProvider
-                ? "Change how Dyad accesses AI."
-                : "Choose how Dyad should access AI before generating your app."}
+                ? "Change how ARBI Code accesses AI."
+                : "Choose how ARBI Code should access AI before generating your app."}
             </DialogDescription>
           </DialogHeader>
           <SetupBanner variant="dialog" forceShow />
