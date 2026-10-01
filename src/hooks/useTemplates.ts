@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { ipc } from "@/ipc/types";
-import { localTemplatesData, type Template } from "@/shared/templates";
+import { offeredLocalTemplates, type Template } from "@/shared/templates";
 import { queryKeys } from "@/lib/queryKeys";
 
 export function useTemplates() {
@@ -9,7 +9,7 @@ export function useTemplates() {
     queryFn: async (): Promise<Template[]> => {
       return ipc.template.getTemplates();
     },
-    placeholderData: localTemplatesData,
+    placeholderData: offeredLocalTemplates,
     meta: {
       showErrorToast: true,
     },

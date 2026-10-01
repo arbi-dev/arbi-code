@@ -85,11 +85,7 @@ function PackageManagerWarningBannerContent({
   const isPnpmMigrationWarning = warning.kind === "pnpm-migration";
 
   const handleOpenDocs = () => {
-    void ipc.system.openExternalUrl(
-      isPnpmMigrationWarning
-        ? "https://dyad.sh/docs/upgrades/pnpm-migration"
-        : "https://pnpm.io/installation",
-    );
+    void ipc.system.openExternalUrl("https://pnpm.io/installation");
   };
 
   const handleDownloadNode = () => {

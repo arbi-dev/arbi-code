@@ -40,13 +40,13 @@
     "activeRuntime": "Activo:",
     "nodeRuntimeActiveVersion": "Node {{version}} - {{source}}",
     "nodeRuntimeSource": {
-      "managed": "Gestionado por Dyad",
+      "managed": "Gestionado por ARBI Code",
       "custom": "Ruta personalizada",
       "system": "Sistema"
     },
     "systemNodeTooOld": "El Node.js del sistema es demasiado antiguo",
     "noUsableNodeFound": "No se encontró un Node.js utilizable",
-    "systemNodeTooOldDescription": "Dyad requiere Node.js del sistema v20 o posterior, o un entorno gestionado.",
+    "systemNodeTooOldDescription": "ARBI Code requiere Node.js del sistema v20 o posterior, o un entorno gestionado.",
     "managedRuntimeVersion": "Entorno gestionado: Node {{version}}",
     "runtimeSystem": "Sistema",
     "runtimeManaged": "Gestionado",
@@ -69,10 +69,10 @@
     "resetToSystemNodePath": "Restablecido a la ruta de Node.js del sistema",
     "resetNodePathFailed": "No se pudo restablecer la ruta de Node.js: {{message}}",
     "runtimePreferenceUpdateFailed": "No se pudo actualizar la preferencia del entorno de Node.js: {{message}}",
-    "managedNodeInstalled": "Node.js gestionado por Dyad se instaló correctamente",
-    "managedNodeInstallFailed": "No se pudo instalar Node.js gestionado por Dyad",
-    "managedNodeRemoved": "Node.js gestionado por Dyad eliminado",
-    "managedNodeRemoveFailed": "No se pudo eliminar Node.js gestionado por Dyad"
+    "managedNodeInstalled": "Node.js gestionado por ARBI Code se instaló correctamente",
+    "managedNodeInstallFailed": "No se pudo instalar Node.js gestionado por ARBI Code",
+    "managedNodeRemoved": "Node.js gestionado por ARBI Code eliminado",
+    "managedNodeRemoveFailed": "No se pudo eliminar Node.js gestionado por ARBI Code"
   },
   "workflow": {
     "title": "Configuración de Flujo de Trabajo",

@@ -42,6 +42,7 @@ import { IssueForm } from "./IssueForm";
 import { ScreenshotField } from "./ScreenshotField";
 import { ReportDisclosures } from "./ReportDisclosures";
 import { ScreenshotCaptureBar } from "./ScreenshotCaptureBar";
+import { HIDE_PRO_UPSELLS } from "@/arbi-config";
 
 const UPLOAD_URL_ENDPOINT = "https://upload-logs.dyad.sh/generate-upload-url";
 
@@ -168,7 +169,8 @@ export function HelpDialog() {
   const [description, setDescription] = useState("");
   const [atCap, setAtCap] = useState(false);
   const [includeSystemInfo, setIncludeSystemInfo] = useState(true);
-  const [includeSession, setIncludeSession] = useState(true);
+  // ARBI fork: the session upload endpoint is Dyad's; never offer it.
+  const [includeSession, setIncludeSession] = useState(!HIDE_PRO_UPSELLS);
 
   // Shown in the disclosures, and sent as-is: the reporter agrees to what
   // they can see, so the body never carries anything else. A submit that
@@ -407,7 +409,7 @@ export function HelpDialog() {
     clearReport();
     blockedReported.current = false;
     setReportOpen(true);
-    setSessionChatId(chatId);
+    setSessionChatId(HIDE_PRO_UPSELLS ? null : chatId);
     setDiagnosticsRun((run) => run + 1);
   };
 
@@ -880,7 +882,7 @@ export function HelpDialog() {
             <SparklesIcon className="mr-2 h-5 w-5" /> Chat with ARBI Code help
             bot (Pro)
           </Button>
-        ) : (
+        ) : HIDE_PRO_UPSELLS ? null : (
           <Button
             variant="outline"
             onClick={() =>

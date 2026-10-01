@@ -1,6 +1,7 @@
 import { Readable } from "node:stream";
 import fetch from "node-fetch";
 import { z } from "zod";
+import { HIDE_PRO_UPSELLS } from "../../arbi-config";
 
 export const UserInfoResponseSchema = z.object({
   usedCredits: z.number().finite().nonnegative(),
@@ -21,6 +22,8 @@ export async function fetchUserInfo(
   apiKey: string,
   signal?: AbortSignal,
 ): Promise<UserInfoResponse> {
+  // ARBI fork: Dyad credit accounts do not exist here.
+  if (HIDE_PRO_UPSELLS) throw new UserInfoApiError(404);
   const timeout = AbortSignal.timeout(10_000);
   const response = await fetch(
     process.env.DYAD_USER_INFO_URL ?? "https://api.dyad.sh/v1/user/info",

@@ -113,7 +113,10 @@ document.addEventListener("visibilitychange", () => {
 const posthogClient = posthog.init(
   "phc_5Vxx0XT8Ug3eWROhP6mm4D6D2DgIIKT232q4AKxC2ab",
   {
-    api_host: "https://us.i.posthog.com",
+    // ARBI fork: no product telemetry. Nothing is sent anywhere; the host is a local dead end and capture is off.
+    api_host: "http://127.0.0.1:9",
+    disable_session_recording: true,
+    opt_out_capturing_by_default: true,
     // @ts-ignore
     debug: import.meta.env.MODE === "development",
     autocapture: false,

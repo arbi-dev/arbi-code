@@ -21,6 +21,7 @@ import {
   buildWindowsCommandInvocation,
   resolveWindowsExecutableName,
 } from "@/ipc/utils/windows_command";
+import { HIDE_PRO_UPSELLS } from "../../arbi-config";
 
 export const SOCKET_FIREWALL_WARNING_MESSAGE =
   "the npm firewall could not be installed. Warning: can not check if npm packages are safe";
@@ -673,6 +674,7 @@ async function fetchRemoteAllowBuildsSource(
 async function fetchRemoteAllowBuildsSourceFromNetwork(
   fetcher: AllowBuildsTextFetcher,
 ): Promise<AllowBuildsSource | null> {
+  if (HIDE_PRO_UPSELLS) return null; // ARBI fork: Dyad hosts this list; use the bundled defaults
   const controller = new AbortController();
   const timeout = setTimeout(
     () => controller.abort(),

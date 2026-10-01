@@ -199,6 +199,7 @@ if (process.env.NODE_ENV === "development") {
   app.setPath("crashDumps", devCrashDumps);
 }
 import { seedArbiProvider } from "./main/arbi-seed";
+import { installNetworkGuard } from "./main/network_guard";
 
 log.eventLogger.startLogging();
 log.scope.labelPadding = false;
@@ -417,6 +418,9 @@ if (process.defaultApp) {
 }
 
 export async function onReady() {
+  // ARBI Code talks to ARBI services only; see network_guard.ts.
+  installNetworkGuard();
+
   // Take over the sentinel before any startup work that can crash. Migrations,
   // the keychain and git all run below; if one of them kills us, a sentinel
   // still naming the previous session would report this crash as that one.
@@ -453,7 +457,7 @@ export async function onReady() {
     const message = error instanceof Error ? error.message : String(error);
     dialog.showErrorBox(
       "Database Migration Failed",
-      `Dyad could not initialize its local database. ${message}`,
+      `ARBI Code could not initialize its local database. ${message}`,
     );
     app.quit();
     return;
@@ -859,7 +863,7 @@ const createWindow = ({
   rendererLoad: Promise<void>;
 } => {
   if (isAppQuitting) {
-    throw new DyadError("Dyad is shutting down", DyadErrorKind.Precondition);
+    throw new DyadError("ARBI Code is shutting down", DyadErrorKind.Precondition);
   }
 
   // Create the browser window.
@@ -1202,7 +1206,7 @@ configureWindowProductController({
   openEntityInNewWindow: async (entity) => {
     if (productWindows.size >= MAX_PRODUCT_WINDOWS) {
       throw new DyadError(
-        `Dyad supports up to ${MAX_PRODUCT_WINDOWS} open windows`,
+        `ARBI Code supports up to ${MAX_PRODUCT_WINDOWS} open windows`,
         DyadErrorKind.Precondition,
       );
     }
@@ -1298,11 +1302,11 @@ const createApplicationMenu = () => {
       label: "View",
       submenu: [
         {
-          label: "Reload Dyad",
+          label: "Reload ARBI Code",
           click: () => BrowserWindow.getFocusedWindow()?.reload(),
         },
         {
-          label: "Force Reload Dyad",
+          label: "Force Reload ARBI Code",
           click: () =>
             BrowserWindow.getFocusedWindow()?.webContents.reloadIgnoringCache(),
         },
@@ -1443,7 +1447,7 @@ function reportUnclaimedOAuthReturn(
   logger.warn(`Rejected unmatched ${provider} OAuth callback:`, error);
   dialog.showErrorBox(
     "Sign-in Could Not Be Verified",
-    `This ${label} sign-in expired or no longer matches the connection started by Dyad. Please connect again.`,
+    `This ${label} sign-in expired or no longer matches the connection started by ARBI Code. Please connect again.`,
   );
 }
 
@@ -1489,7 +1493,7 @@ async function handleDeepLinkReturn(url: string) {
     if (!expectedInvocationRef) {
       dialog.showErrorBox(
         "Invalid URL",
-        "This Neon sign-in could not be verified. Please connect again from Dyad.",
+        "This Neon sign-in could not be verified. Please connect again from ARBI Code.",
       );
       return;
     }
@@ -1535,7 +1539,7 @@ async function handleDeepLinkReturn(url: string) {
     if (!expectedInvocationRef) {
       dialog.showErrorBox(
         "Invalid URL",
-        "This Supabase sign-in could not be verified. Please connect again from Dyad.",
+        "This Supabase sign-in could not be verified. Please connect again from ARBI Code.",
       );
       return;
     }

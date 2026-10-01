@@ -4,6 +4,7 @@ import { IS_TEST_BUILD } from "../utils/test_utils";
 import { createTypedHandler } from "./base";
 import { systemContracts } from "../types/system";
 import { DyadError, DyadErrorKind } from "@/errors/dyad_error";
+import { HIDE_PRO_UPSELLS } from "../../arbi-config";
 
 const logger = log.scope("release_note_handlers");
 
@@ -25,6 +26,8 @@ export function registerReleaseNoteHandlers() {
       if (IS_TEST_BUILD) {
         return { exists: false };
       }
+      // ARBI fork: release notes are hosted by Dyad.
+      if (HIDE_PRO_UPSELLS) return { exists: false };
       const releaseNoteUrl = `https://www.dyad.sh/docs/releases/${version}`;
 
       logger.debug(`Checking for release note at: ${releaseNoteUrl}`);

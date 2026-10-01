@@ -1,3 +1,5 @@
+import { HIDE_PRO_UPSELLS } from "../arbi-config";
+
 export const SECTION_IDS = {
   general: "general-settings",
   workflow: "workflow-settings",
@@ -68,7 +70,7 @@ type SearchableSettingItem = {
   sectionLabel: string;
 };
 
-export const SETTINGS_SEARCH_INDEX: SearchableSettingItem[] = [
+const ALL_SETTINGS_SEARCH_ITEMS: SearchableSettingItem[] = [
   // General Settings
   {
     id: SETTING_IDS.theme,
@@ -121,7 +123,7 @@ export const SETTINGS_SEARCH_INDEX: SearchableSettingItem[] = [
   {
     id: SETTING_IDS.nodeRuntime,
     label: "Node Runtime",
-    description: "Choose between system Node.js and Dyad-managed Node.js",
+    description: "Choose between system Node.js and ARBI Code-managed Node.js",
     keywords: ["node", "nodejs", "runtime", "managed", "system"],
     sectionId: SECTION_IDS.general,
     sectionLabel: "General",
@@ -699,3 +701,16 @@ export const SETTINGS_SEARCH_INDEX: SearchableSettingItem[] = [
     sectionLabel: "Danger Zone",
   },
 ];
+
+// Settings that only work with a Dyad Pro subscription; hidden (and unsearchable) when Pro upsells are off.
+const PRO_ONLY_SETTING_IDS = new Set<string>([
+  SETTING_IDS.autoApproveSafeMcpTools,
+  SETTING_IDS.enableCloudSandbox,
+  SETTING_IDS.enableCodeExplorer,
+  SETTING_IDS.enableClaudeCodeSubscription,
+]);
+
+export const SETTINGS_SEARCH_INDEX: SearchableSettingItem[] =
+  ALL_SETTINGS_SEARCH_ITEMS.filter(
+    (item) => !(HIDE_PRO_UPSELLS && PRO_ONLY_SETTING_IDS.has(item.id)),
+  );

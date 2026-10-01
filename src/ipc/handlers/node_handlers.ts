@@ -189,7 +189,7 @@ function scheduleManagedPnpmInstall(currentPnpmVersion: string | null): void {
     process.env.DYAD_SKIP_MANAGED_PNPM_INSTALL === "true"
   ) {
     logger.info(
-      "Skipping implicit Dyad-managed pnpm install (DYAD_SKIP_MANAGED_PNPM_INSTALL).",
+      "Skipping implicit ARBI Code-managed pnpm install (DYAD_SKIP_MANAGED_PNPM_INSTALL).",
     );
     return;
   }
@@ -199,18 +199,18 @@ function scheduleManagedPnpmInstall(currentPnpmVersion: string | null): void {
   }
   if (managedPnpmImplicitInstallFailed) {
     logger.info(
-      "Skipping implicit Dyad-managed pnpm install because it already failed this session.",
+      "Skipping implicit ARBI Code-managed pnpm install because it already failed this session.",
     );
     return;
   }
 
   if (currentPnpmVersion) {
     logger.info(
-      `Existing pnpm ${currentPnpmVersion} is older than ${PNPM_MINIMUM_RELEASE_AGE_VERSION}; installing Dyad-managed pnpm in the background.`,
+      `Existing pnpm ${currentPnpmVersion} is older than ${PNPM_MINIMUM_RELEASE_AGE_VERSION}; installing ARBI Code-managed pnpm in the background.`,
     );
   } else {
     logger.info(
-      "pnpm not found; installing Dyad-managed pnpm in the background.",
+      "pnpm not found; installing ARBI Code-managed pnpm in the background.",
     );
   }
 

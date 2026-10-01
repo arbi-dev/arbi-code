@@ -4,6 +4,7 @@ import {
   McpCatalogEntrySchema,
   type McpCatalogEntry,
 } from "@/ipc/types/mcp_catalog";
+import { HIDE_PRO_UPSELLS } from "../../arbi-config";
 
 const logger = log.scope("remote_mcp_catalog");
 
@@ -11,6 +12,9 @@ const REMOTE_MCP_CATALOG_TIMEOUT_MS = 5_000;
 const DEFAULT_CACHE_TTL_MS = 60 * 60 * 1000;
 const MAX_CACHE_TTL_MS = 24 * 60 * 60 * 1000;
 const FAILURE_CACHE_TTL_MS = 30 * 1000;
+
+// ARBI fork: the hosted catalog is Dyad's; plugins are added by hand.
+export const MCP_CATALOG_DISABLED = HIDE_PRO_UPSELLS;
 
 function getRemoteMcpCatalogUrl() {
   if (process.env.DYAD_MCP_CATALOG_URL) {
@@ -63,6 +67,7 @@ async function fetchRemoteMcpCatalog(): Promise<{
   entries: McpCatalogEntry[];
   expiresAt: number;
 }> {
+  if (MCP_CATALOG_DISABLED) return { entries: [], expiresAt: Date.now() + 24 * 60 * 60 * 1000 };
   const response = await fetch(getRemoteMcpCatalogUrl(), {
     signal: AbortSignal.timeout(REMOTE_MCP_CATALOG_TIMEOUT_MS),
   });

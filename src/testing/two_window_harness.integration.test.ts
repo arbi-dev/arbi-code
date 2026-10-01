@@ -77,7 +77,7 @@ describe("two-window infrastructure harness", () => {
     ).not.toThrow();
     expect(() =>
       assertTrustedRenderer(harness.trustedInvokeEvent(first, second) as any),
-    ).toThrow("trusted Dyad renderer");
+    ).toThrow("trusted ARBI Code renderer");
   });
 
   it("disposes deleted entities in every window and in main exactly once", () => {

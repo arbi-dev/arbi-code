@@ -46,6 +46,8 @@ import { activeSettingsSectionAtom } from "@/atoms/viewAtoms";
 import { SECTION_IDS, SETTING_IDS } from "@/lib/settingsSearchIndex";
 import { SubagentSettings } from "@/components/settings/SubagentSettings";
 import { RunTypeScriptForWholeProjectSwitch } from "@/components/RunTypeScriptForWholeProjectSwitch";
+import { HIDE_PRO_UPSELLS } from "@/arbi-config";
+import { UPSTREAM_URL } from "@/arbi-config";
 
 const hint = "text-[13px] leading-relaxed text-muted-foreground";
 
@@ -141,7 +143,7 @@ export default function SettingsPage() {
           <SettingsSection
             id={SECTION_IDS.providers}
             title="Model Providers"
-            description="Connect the AI providers Dyad uses to build and run your apps."
+            description="Connect the AI providers ARBI Code uses to build and run your apps."
           >
             <ProviderSettingsGrid />
           </SettingsSection>
@@ -149,7 +151,7 @@ export default function SettingsPage() {
           <SettingsSection
             id={SECTION_IDS.telemetry}
             title="Telemetry"
-            description="Anonymous usage data that helps improve Dyad."
+            description="Anonymous usage data that helps improve ARBI Code."
           >
             <div id={SETTING_IDS.telemetry} className="space-y-1.5">
               <TelemetrySwitch />
@@ -169,7 +171,7 @@ export default function SettingsPage() {
           <SettingsSection
             id={SECTION_IDS.integrations}
             title="Integrations"
-            description="Link Dyad to the services you deploy and store data with."
+            description="Link ARBI Code to the services you deploy and store data with."
           >
             <div id={SETTING_IDS.github}>
               <GitHubIntegration />
@@ -180,12 +182,16 @@ export default function SettingsPage() {
             <div id={SETTING_IDS.cloudflare}>
               <CloudflareIntegration />
             </div>
-            <div id={SETTING_IDS.supabase}>
-              <SupabaseIntegration />
-            </div>
-            <div id={SETTING_IDS.neon}>
-              <NeonIntegration />
-            </div>
+            {!HIDE_PRO_UPSELLS && (
+              <>
+                <div id={SETTING_IDS.supabase}>
+                  <SupabaseIntegration />
+                </div>
+                <div id={SETTING_IDS.neon}>
+                  <NeonIntegration />
+                </div>
+              </>
+            )}
           </SettingsSection>
 
           <SettingsSection
@@ -248,16 +254,18 @@ export default function SettingsPage() {
               <MultiWindowExperimentSwitch />
             </div>
             <div id={SETTING_IDS.enableClaudeCodeSubscription}>
-              <ClaudeCodeSubscriptionExperimentSwitch />
+              {!HIDE_PRO_UPSELLS && <ClaudeCodeSubscriptionExperimentSwitch />}
             </div>
 
             <div id={SETTING_IDS.enableTestRunInPreview}>
               <TestRunInPreviewSwitch />
             </div>
 
-            <div id={SETTING_IDS.autoApproveSafeMcpTools}>
-              <AutoApproveMcpSwitch />
-            </div>
+            {!HIDE_PRO_UPSELLS && (
+              <div id={SETTING_IDS.autoApproveSafeMcpTools}>
+                <AutoApproveMcpSwitch />
+              </div>
+            )}
 
             <div
               id={SETTING_IDS.enableOwnServerDeployment}
@@ -364,6 +372,7 @@ export default function SettingsPage() {
               </p>
             </div>
 
+            {!HIDE_PRO_UPSELLS && (
             <div id={SETTING_IDS.enableCodeExplorer} className="space-y-1.5">
               <div className="flex items-center gap-2">
                 <Switch
@@ -385,6 +394,7 @@ export default function SettingsPage() {
                 a compiler-backed code graph.
               </p>
             </div>
+            )}
 
             <RunTypeScriptForWholeProjectSwitch />
 
@@ -423,6 +433,18 @@ export default function SettingsPage() {
         </div>
       </div>
 
+      {/* The only link to Dyad in the app: the credit for the open-source project this is based on. */}
+      <footer className="px-8 pb-8 text-xs text-muted-foreground">
+        Based on{" "}
+        <button
+          type="button"
+          onClick={() => ipc.system.openExternalUrl(UPSTREAM_URL)}
+          className="font-medium underline underline-offset-2 hover:text-foreground"
+        >
+          Dyad App Builder
+        </button>
+      </footer>
+
       <ConfirmationDialog
         isOpen={isResetDialogOpen}
         title="Reset Everything"
@@ -444,7 +466,7 @@ export function GeneralSettings({ appVersion }: { appVersion: string | null }) {
     <SettingsSection
       id={SECTION_IDS.general}
       title="General"
-      description="Appearance, language, and how Dyad runs on your machine."
+      description="Appearance, language, and how ARBI Code runs on your machine."
     >
       <div id={SETTING_IDS.theme} className="flex items-center gap-4">
         <label className="text-sm font-medium text-foreground">Theme</label>
@@ -510,7 +532,7 @@ export function WorkflowSettings() {
     <SettingsSection
       id={SECTION_IDS.workflow}
       title="Workflow"
-      description="How Dyad handles code changes, previews, and notifications."
+      description="How ARBI Code handles code changes, previews, and notifications."
     >
       <div id={SETTING_IDS.defaultChatMode}>
         <DefaultChatModeSelector />

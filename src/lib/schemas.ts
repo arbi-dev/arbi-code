@@ -3,6 +3,7 @@ import {
   isGoogleProviderSetup,
   isNonGoogleProviderSetup,
 } from "./providerUtils";
+import { HIDE_PRO_UPSELLS } from "../arbi-config";
 
 export const SecretSchema = z.object({
   value: z.string(),
@@ -686,6 +687,9 @@ export function migrateStoredSettings(
 }
 
 export function isDyadProEnabled(settings: UserSettings): boolean {
+  // ARBI fork: there is no Dyad Pro. This one switch also keeps the Dyad engine, account, subscription and
+  // credit code paths from ever running.
+  if (HIDE_PRO_UPSELLS) return false;
   return settings.enableDyadPro === true && hasDyadProKey(settings);
 }
 
@@ -727,6 +731,10 @@ export function getEffectiveDefaultChatMode(
     return settings.defaultChatMode;
   }
 
+  // ARBI fork: Agent mode is only offered as Dyad's quota-limited "Basic Agent" (or Pro),
+  // neither of which exists here, so new users start in Build.
+  if (HIDE_PRO_UPSELLS) return "build";
+
   if (isPro) return "local-agent";
   if (settings.defaultChatMode === "local-agent") return "local-agent";
   if (hasGoogleProviderSetup && !hasNonGoogleProviderSetup) return "build";
@@ -740,6 +748,8 @@ export function getEffectiveDefaultChatMode(
  * - User is using local-agent chat mode
  */
 export function isBasicAgentMode(settings: UserSettings): boolean {
+  // ARBI fork: no free-tier quota (it is counted against a Dyad-hosted clock and limit).
+  if (HIDE_PRO_UPSELLS) return false;
   return (
     settings.selectedModel.provider !== "claude-code" &&
     !isDyadProEnabled(settings) &&

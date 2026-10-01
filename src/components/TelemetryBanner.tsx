@@ -41,17 +41,6 @@ export function PrivacyBanner() {
             {t("telemetry.helpImprove")}
           </span>{" "}
           {t("telemetry.noCodeOrMessages")}{" "}
-          <button
-            type="button"
-            onClick={() => {
-              ipc.system.openExternalUrl(
-                "https://dyad.sh/docs/policies/privacy-policy",
-              );
-            }}
-            className="font-medium text-blue-600 hover:underline dark:text-blue-400"
-          >
-            {t("telemetry.learnMore")}
-          </button>
         </p>
         <div className="flex shrink-0 gap-1.5 sm:justify-end">
           <Button

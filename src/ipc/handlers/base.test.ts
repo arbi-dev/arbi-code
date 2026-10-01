@@ -283,7 +283,7 @@ describe("IPC handler envelopes", () => {
       { sender: { mainFrame }, senderFrame },
     );
 
-    expect(() => unwrapIpcEnvelope(envelope)).toThrow("trusted Dyad renderer");
+    expect(() => unwrapIpcEnvelope(envelope)).toThrow("trusted ARBI Code renderer");
     expect(implementation).not.toHaveBeenCalled();
   });
 
@@ -334,7 +334,7 @@ describe("IPC handler envelopes", () => {
         },
       );
       expect(() => unwrapIpcEnvelope(envelope)).toThrow(
-        "trusted Dyad renderer",
+        "trusted ARBI Code renderer",
       );
       expect(mocks.sendTelemetryException).not.toHaveBeenCalled();
     } finally {
@@ -376,7 +376,7 @@ describe("IPC handler envelopes", () => {
           { sender: { mainFrame: frame }, senderFrame: frame },
         );
         expect(() => unwrapIpcEnvelope(envelope)).toThrow(
-          "trusted Dyad renderer",
+          "trusted ARBI Code renderer",
         );
       }
 
@@ -395,7 +395,7 @@ describe("IPC handler envelopes", () => {
           event,
         );
         expect(() => unwrapIpcEnvelope(envelope)).toThrow(
-          "trusted Dyad renderer",
+          "trusted ARBI Code renderer",
         );
       }
     } finally {
@@ -444,7 +444,7 @@ describe("IPC handler envelopes", () => {
       { sender: { mainFrame: frame }, senderFrame: frame },
     );
 
-    expect(() => unwrapIpcEnvelope(envelope)).toThrow("trusted Dyad renderer");
+    expect(() => unwrapIpcEnvelope(envelope)).toThrow("trusted ARBI Code renderer");
     expect(inputValidation).not.toHaveBeenCalled();
     expect(mocks.sendTelemetryException).not.toHaveBeenCalled();
   });
@@ -506,7 +506,7 @@ describe("IPC handler envelopes", () => {
       sender: { mainFrame: frame },
       senderFrame: frame,
     });
-    expect(() => unwrapIpcEnvelope(envelope)).toThrow("trusted Dyad renderer");
+    expect(() => unwrapIpcEnvelope(envelope)).toThrow("trusted ARBI Code renderer");
   });
 
   it("rejects remote origins in logged typed handlers too", async () => {
@@ -531,7 +531,7 @@ describe("IPC handler envelopes", () => {
       { sender: { mainFrame: frame }, senderFrame: frame },
     );
 
-    expect(() => unwrapIpcEnvelope(envelope)).toThrow("trusted Dyad renderer");
+    expect(() => unwrapIpcEnvelope(envelope)).toThrow("trusted ARBI Code renderer");
     expect(implementation).not.toHaveBeenCalled();
     expect(mocks.sendTelemetryException).not.toHaveBeenCalled();
   });

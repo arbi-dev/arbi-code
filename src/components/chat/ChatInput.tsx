@@ -130,6 +130,7 @@ import {
   composeChatPrompt,
   hasChatComposerPayload,
 } from "@/lib/serializeChatAnnotations";
+import { HIDE_PRO_UPSELLS } from "@/arbi-config";
 
 const showTokenBarAtom = atom(false);
 
@@ -356,7 +357,7 @@ export function ChatInput({ chatId }: { chatId?: number }) {
   // Promo cap row on the composer; never stack two caps — the context limit
   // warning wins the slot.
   const promo = usePromoMessage(chatId);
-  const showPromo = promo.visible && !showBanner;
+  const showPromo = !HIDE_PRO_UPSELLS && promo.visible && !showBanner;
 
   useEffect(() => {
     if (error) {
@@ -1011,6 +1012,7 @@ export function ChatInput({ chatId }: { chatId?: number }) {
               }}
             />
           ) : (
+            !HIDE_PRO_UPSELLS &&
             selectedComponents.length > 0 && (
               <div className="border-b border-border p-3 bg-muted/30">
                 <Tooltip>
@@ -1117,7 +1119,7 @@ export function ChatInput({ chatId }: { chatId?: number }) {
                       : t("voiceToText", "Voice to text")}
                 </TooltipContent>
               </Tooltip>
-            ) : (
+            ) : HIDE_PRO_UPSELLS ? null : (
               <Tooltip>
                 <TooltipTrigger
                   render={

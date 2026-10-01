@@ -33,6 +33,7 @@ import {
   useFirstPromptSend,
 } from "@/first_prompt/FirstPromptProvider";
 import { getHomeDefaultChatMode } from "@/lib/homeChatMode";
+import { HIDE_PRO_UPSELLS } from "@/arbi-config";
 
 // Adding an export for attachments
 export interface HomeSubmitOptions {
@@ -185,7 +186,7 @@ export default function HomePage() {
               What do you want to build?
             </h1>
             <p className="mx-auto mt-3 max-w-2xl text-base leading-7 text-muted-foreground">
-              Describe your idea. Dyad will turn it into a working app.
+              Describe your idea. ARBI Code will turn it into a working app.
             </p>
             <div className="mt-4 flex justify-center gap-3">
               <ImportAppButton
@@ -193,7 +194,7 @@ export default function HomePage() {
                 variant="outline"
                 size="sm"
               />
-              {!hasDyadProApiKey && (
+              {!HIDE_PRO_UPSELLS && !hasDyadProApiKey && (
                 <Button
                   size="sm"
                   onClick={() =>
@@ -213,7 +214,8 @@ export default function HomePage() {
             disabled={isCheckingProviders}
           />
 
-          {!isSettingsLoading &&
+          {!HIDE_PRO_UPSELLS &&
+            !isSettingsLoading &&
             !isLoadingLanguageModelProviders &&
             !hasDyadProApiKey && (
               <div className="-mt-2 flex justify-end px-4">
