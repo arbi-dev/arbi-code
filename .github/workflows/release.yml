@@ -11,7 +11,9 @@ permissions:
 
 jobs:
   build:
-    runs-on: windows-latest
+    # Pinned: windows-latest now ships a Visual Studio version that the
+    # @electron/node-gyp used for the better-sqlite3 rebuild cannot detect.
+    runs-on: windows-2022
     # Azure Trusted Signing — set these as GitHub repo secrets to enable signed
     # builds. While unset, the signing step below is skipped and builds are
     # produced unsigned, so releases keep working in the meantime.
