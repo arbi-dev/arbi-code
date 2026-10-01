@@ -38,7 +38,9 @@ jobs:
         # working. When present, this installs the Trusted Signing dlib,
         # writes the metadata file, and exports the env vars consumed by
         # forge.config.ts -> windowsSign.ts (signtool /dlib /dmdf).
-        if: env.AZURE_CLIENT_ID != ''
+        # Require every secret: a partial setup (e.g. missing profile name)
+        # would enable signing and then fail signtool with 0x80070057.
+        if: env.AZURE_TENANT_ID != '' && env.AZURE_CLIENT_ID != '' && env.AZURE_CLIENT_SECRET != '' && env.TRUSTED_SIGNING_ENDPOINT != '' && env.TRUSTED_SIGNING_ACCOUNT != '' && env.TRUSTED_SIGNING_PROFILE != ''
         shell: pwsh
         run: |
           $pkg = "Microsoft.Trusted.Signing.Client"
