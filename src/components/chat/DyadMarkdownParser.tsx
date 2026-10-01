@@ -122,7 +122,7 @@ export const VanillaMarkdownParser = ({ content }: { content: string }) => {
 };
 
 /**
- * Custom component to parse markdown content with Dyad-specific tags.
+ * Custom component to parse markdown content with ARBI Code-specific tags.
  *
  * The block list is sourced from a component-local incremental parser. Completed
  * blocks keep referential identity across streaming chunks, so React.memo can

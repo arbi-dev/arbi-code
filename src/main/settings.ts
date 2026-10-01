@@ -34,6 +34,7 @@ import {
   recoverLegacySafeStorageSecret,
 } from "./safe_storage_legacy";
 import { DEFAULT_ENABLE_TESTING_FOR_NEW_APPS } from "@/shared/settings_defaults";
+import { ARBI_PROVIDER_ID, ARBI_MODELS } from "../arbi-config";
 
 const logger = log.scope("settings");
 
@@ -47,8 +48,8 @@ const logger = log.scope("settings");
 export const DEFAULT_SETTINGS: UserSettings = {
   chatgptFastMode: false,
   selectedModel: {
-    name: "auto",
-    provider: "auto",
+    name: ARBI_MODELS[0].apiName,
+    provider: ARBI_PROVIDER_ID,
   },
   providerSettings: {},
   telemetryConsent: "unset",
@@ -474,9 +475,20 @@ export function writeSettings(settings: Partial<UserSettings>): void {
     }
     for (const provider in newSettings.providerSettings) {
       if (newSettings.providerSettings[provider].apiKey) {
-        newSettings.providerSettings[provider].apiKey = encrypt(
-          newSettings.providerSettings[provider].apiKey.value,
-        );
+        // Event fork: the ARBI event key is short-lived, budget-capped and
+        // per-attendee, so encrypting it at rest buys almost nothing. On
+        // packaged (renamed + unsigned) Windows Squirrel builds the Electron
+        // safeStorage decrypt round-trip silently dropped/garbled the key, so
+        // models failed with no visible error. Store it plaintext so the
+        // persisted value is exactly the value we verified works end-to-end.
+        newSettings.providerSettings[provider].apiKey =
+          provider === ARBI_PROVIDER_ID
+            ? {
+                value:
+                  newSettings.providerSettings[provider].apiKey.value.trim(),
+                encryptionType: "plaintext",
+              }
+            : encrypt(newSettings.providerSettings[provider].apiKey.value);
       }
       // Encrypt Vertex service account key if present
       const v = newSettings.providerSettings[provider] as VertexProviderSetting;

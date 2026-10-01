@@ -3,6 +3,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { app, safeStorage } from "electron";
 import {
+  DEFAULT_SETTINGS,
   readSettings,
   resolveEffectiveSettings,
   readEffectiveSettings,
@@ -139,8 +140,8 @@ describe("readSettings", () => {
           "runTypeScriptForWholeProject": false,
           "selectedChatMode": "build",
           "selectedModel": {
-            "name": "auto",
-            "provider": "auto",
+            "name": "Fast",
+            "provider": "custom::arbi-litellm",
           },
           "selectedTemplateId": "react",
           "selectedThemeId": "default",
@@ -583,8 +584,8 @@ describe("readSettings", () => {
           "runTypeScriptForWholeProject": false,
           "selectedChatMode": "build",
           "selectedModel": {
-            "name": "auto",
-            "provider": "auto",
+            "name": "Fast",
+            "provider": "custom::arbi-litellm",
           },
           "selectedTemplateId": "react",
           "selectedThemeId": "default",
@@ -601,10 +602,7 @@ describe("readSettings", () => {
       const result = readSettings();
 
       expect(result).toMatchObject({
-        selectedModel: {
-          name: "auto",
-          provider: "auto",
-        },
+        selectedModel: DEFAULT_SETTINGS.selectedModel,
         releaseChannel: "stable",
       });
     });
@@ -624,10 +622,7 @@ describe("readSettings", () => {
       const result = readSettings();
 
       expect(result).toMatchObject({
-        selectedModel: {
-          name: "auto",
-          provider: "auto",
-        },
+        selectedModel: DEFAULT_SETTINGS.selectedModel,
         releaseChannel: "stable",
       });
     });
@@ -692,10 +687,7 @@ describe("readSettings", () => {
 
       const result = readSettings();
 
-      expect(result.selectedModel).toEqual({
-        name: "auto",
-        provider: "auto",
-      });
+      expect(result.selectedModel).toEqual(DEFAULT_SETTINGS.selectedModel);
       expect(result.githubAccessToken).toBeUndefined();
     });
 

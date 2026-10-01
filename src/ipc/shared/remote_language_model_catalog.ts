@@ -23,6 +23,7 @@ import {
   OPUS_4_8,
   PROVIDER_TO_ENV_VAR,
 } from "./language_model_constants";
+import { ARBI_MODE } from "../../arbi-config";
 
 const logger = log.scope("remote_language_model_catalog");
 
@@ -488,6 +489,17 @@ function triggerBackgroundRefresh(): void {
 }
 
 export async function getBuiltinLanguageModelCatalog(): Promise<BuiltinLanguageModelCatalog> {
+  // ARBI fork: event builds hide every builtin cloud provider and seed the
+  // event provider/models straight into the DB, so the remote Dyad catalog is
+  // vestigial. Short-circuit to the local fallback to drop the runtime
+  // dependency on api.dyad.sh entirely — no network, no startup latency/noise.
+  if (ARBI_MODE) {
+    if (!builtinCatalogCache) {
+      builtinCatalogCache = getFallbackCatalog();
+    }
+    return builtinCatalogCache;
+  }
+
   if (builtinCatalogCache && builtinCatalogCache.expiresAt > Date.now()) {
     logger.debug("Returning cached language model catalog", {
       source: builtinCatalogCache.source,

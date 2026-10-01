@@ -44,6 +44,7 @@ Detailed rules and learnings are in the `rules/` directory. Read the relevant fi
 
 | [rules/claude-code-backend.md](rules/claude-code-backend.md) | Claude Code backend, model picker, subscription usage, and tool presentation |
 | [rules/user-app-test-isolation.md](rules/user-app-test-isolation.md) | Changing Tests-panel database isolation: Supabase test users, Neon test data cleanup, per-test lifecycle timeouts, or the generated fixture shim |
+| [rules/windows-code-signing.md](rules/windows-code-signing.md) | Setting up or running signed Windows releases (Azure Trusted/Artifact Signing, identity validation, `release.yml` secrets) |
 
 ## Project setup and lints
 

@@ -76,7 +76,7 @@
     }
   },
   "dismissError": "Dismiss error",
-  "askDyadToBuild": "Ask Dyad to build...",
+  "askDyadToBuild": "Ask ARBI Code to build...",
   "cancelGeneration": "Cancel generation",
   "stoppingGeneration": "Stopping…",
   "cancellationEndingTestRun": "Ending the test run.",
@@ -339,7 +339,7 @@
     "troubleshootingGuide": "Troubleshooting guide",
     "invalidProKey": "Looks like you don't have a valid Dyad Pro key.",
     "today": "today.",
-    "creditsUsed": "You have used all of your Dyad AI credits this month.",
+    "creditsUsed": "You have used all of your ARBI Code AI credits this month.",
     "reloadOrUpgrade": "Reload or upgrade your subscription",
     "getMoreCredits": "and get more AI credits",
     "readDocs": "Read docs"
@@ -351,11 +351,11 @@
     "saveOnCosts": "Save up to 3x on AI costs with",
     "debuggingLoop": "Getting stuck in a debugging loop? Try a different model.",
     "joinBuilders": "Join 600+ builders in the",
-    "dyadSubreddit": "Dyad subreddit",
+    "dyadSubreddit": "ARBI Code subreddit",
     "foundBug": "Found a bug? Click Help > Report a Bug",
     "reportBadResponse": "Want to report a bad AI response? Upload the chat by clicking Help",
     "watch": "Watch",
-    "creatorBuildApp": "the creator of Dyad build a Bible app step-by-step",
+    "creatorBuildApp": "the creator of ARBI Code build a Bible app step-by-step",
     "gettingStuck": "Getting stuck? Read our",
     "debuggingTips": "debugging tips",
     "advancedTip": "Advanced tip: Customize your",
@@ -363,7 +363,7 @@
     "keepFocused": "Want to keep the AI focused? Start a new chat.",
     "whatsNext": "Want to know what's next? Check out our",
     "roadmap": "roadmap",
-    "likeDyad": "Like Dyad? Star it on",
+    "likeDyad": "Like ARBI Code? Star it on",
     "gitHub": "GitHub"
   },
   "consent": {

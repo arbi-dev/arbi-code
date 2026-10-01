@@ -537,7 +537,7 @@ describe("HelpDialog report flow", () => {
     await openForm("never mind");
     fireEvent.click(screen.getByRole("button", { name: "Back" }));
 
-    expect(await screen.findByText("Need help with Dyad?")).toBeTruthy();
+    expect(await screen.findByText("Need help with ARBI Code?")).toBeTruthy();
     fireEvent.click(screen.getByText("Report a Bug"));
     expect(
       ((await screen.findByLabelText(/What happened/)) as HTMLTextAreaElement)
@@ -1353,7 +1353,7 @@ describe("HelpDialog disclosures", () => {
     }) as HTMLButtonElement;
     expect(back.disabled).toBe(false);
     fireEvent.click(back);
-    expect(await screen.findByText("Need help with Dyad?")).toBeTruthy();
+    expect(await screen.findByText("Need help with ARBI Code?")).toBeTruthy();
   });
 
   it("locks everything the filed report was built from", async () => {
@@ -1443,7 +1443,7 @@ describe("HelpDialog disclosures", () => {
 
   it("reports the gate against the report that was blocked", async () => {
     renderHelp();
-    await screen.findByText("Need help with Dyad?");
+    await screen.findByText("Need help with ARBI Code?");
     fireEvent.click(screen.getByText("force-close-report"));
     await screen.findByLabelText(/What happened/);
     submit();
@@ -1526,7 +1526,7 @@ describe("HelpDialog disclosures", () => {
     );
 
     renderHelp();
-    await screen.findByText("Need help with Dyad?");
+    await screen.findByText("Need help with ARBI Code?");
     fireEvent.click(screen.getByText("force-close-report"));
     await screen.findByLabelText(/What happened/);
 
@@ -1563,7 +1563,7 @@ describe("HelpDialog disclosures", () => {
     );
 
     renderHelp();
-    await screen.findByText("Need help with Dyad?");
+    await screen.findByText("Need help with ARBI Code?");
     fireEvent.click(screen.getByText("force-close-report"));
     await screen.findByLabelText(/What happened/);
 
@@ -1588,7 +1588,7 @@ describe("HelpDialog disclosures", () => {
 
   it("uploads the crashed chat, not whichever chat is selected", async () => {
     renderHelp();
-    await screen.findByText("Need help with Dyad?");
+    await screen.findByText("Need help with ARBI Code?");
     fireEvent.click(screen.getByText("force-close-report"));
     await screen.findByLabelText(/What happened/);
     fireEvent.change(screen.getByLabelText(/What happened/), {
@@ -1608,7 +1608,7 @@ describe("HelpDialog disclosures", () => {
 
   it("keeps the session offer after the dialog reopens with no chat selected", async () => {
     renderHelp();
-    await screen.findByText("Need help with Dyad?");
+    await screen.findByText("Need help with ARBI Code?");
     fireEvent.click(screen.getByText("clear-chat"));
     fireEvent.click(screen.getByText("force-close-report"));
     await screen.findByLabelText(/What happened/);
@@ -1629,7 +1629,7 @@ describe("HelpDialog disclosures", () => {
 
   it("counts a crash-opened form, and says it came from the crash", async () => {
     renderHelp();
-    await screen.findByText("Need help with Dyad?");
+    await screen.findByText("Need help with ARBI Code?");
     fireEvent.click(screen.getByText("force-close-report"));
     await screen.findByLabelText(/What happened/);
 
@@ -1642,7 +1642,7 @@ describe("HelpDialog disclosures", () => {
 
   it("carries the crash source on the report's screenshot events too", async () => {
     renderHelp();
-    await screen.findByText("Need help with Dyad?");
+    await screen.findByText("Need help with ARBI Code?");
     fireEvent.click(screen.getByText("force-close-report"));
     await screen.findByLabelText(/What happened/);
     await addScreenshot();
@@ -1668,7 +1668,7 @@ describe("HelpDialog disclosures", () => {
 
   it("opens the form with the session ticked after a force-close", async () => {
     renderHelp();
-    await screen.findByText("Need help with Dyad?");
+    await screen.findByText("Need help with ARBI Code?");
 
     fireEvent.click(screen.getByText("force-close-report"));
 
@@ -2601,7 +2601,7 @@ describe("HelpDialog closing step", () => {
     expect(screen.queryByText("Did you paste your screenshot?")).toBeNull();
 
     fireEvent.click(screen.getByText("reopen-help"));
-    expect(await screen.findByText("Need help with Dyad?")).toBeTruthy();
+    expect(await screen.findByText("Need help with ARBI Code?")).toBeTruthy();
     expect(screen.queryByDisplayValue("the preview goes blank")).toBeNull();
   });
 

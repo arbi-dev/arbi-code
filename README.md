@@ -1,3 +1,20 @@
+# ARBI Code
+
+**ARBI Code is a whitelabel build of [Dyad](https://dyad.sh) — the local, open-source AI app builder.**
+
+It is a convenience wrapper for running Dyad at ARBI hackathon events: it ships
+preconfigured with an event API key so attendees can start building right away,
+with no provider setup or configuration. All of the underlying app-building
+technology is Dyad's. Full credit and thanks to the Dyad team — please support
+the upstream project at **[dyad.sh](https://dyad.sh)** and
+**[github.com/dyad-sh/dyad](https://github.com/dyad-sh/dyad)**.
+
+This fork's changes are limited to event-mode convenience and branding (a
+prebaked provider/key, hiding setup and Dyad Pro upsells attendees can't use,
+and ARBI styling). The original Dyad README follows.
+
+---
+
 # Dyad
 
 Dyad is a local, open-source AI app builder. It's fast, private, and fully under your control — like Lovable, v0, or Bolt, but running right on your machine.

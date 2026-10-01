@@ -1,0 +1,49 @@
+# ARBI fork guardrails.
+#
+# The fork removed all of upstream Dyad's CI, so nothing automatically proved the
+# ARBI customizations (event-mode provider seeding, provider hiding, the offline
+# model catalog, plaintext event-key storage) still worked after an upstream
+# merge. This workflow restores a minimal gate: typecheck + the focused ARBI
+# harness on every push/PR, and the full unit suite so an upstream change that
+# breaks something unrelated also fails loudly here.
+name: ARBI CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+# Cancel superseded runs on the same ref to save CI minutes.
+concurrency:
+  group: arbi-ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  guardrails:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: package.json
+          cache: npm
+      - run: npm ci
+
+      # The root typecheck pulls in testing/fake-llm-server (via e2e-tests
+      # imports), which has its own package.json for express/cors types.
+      - name: Install fake-llm-server deps
+        run: npm ci --prefix testing/fake-llm-server
+
+      # Typecheck both the app and the worker tsconfig.
+      - name: Typecheck
+        run: npm run ts
+
+      # ARBI-specific invariants — the things an upstream merge is most likely
+      # to silently break. Fast, runs first for a quick signal.
+      - name: ARBI harness
+        run: npm run test:arbi
+
+      # Full unit suite — catches collateral damage from upstream changes.
+      - name: Unit tests
+        run: npm test

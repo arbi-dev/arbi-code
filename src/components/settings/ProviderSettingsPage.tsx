@@ -133,9 +133,9 @@ export function ProviderSettingsPage({ provider }: ProviderSettingsPageProps) {
   const { hasArmedPayload } = useFirstPromptSaga();
   const resumeFirstPrompt = useFirstPromptProviderResume();
 
-  // Use fetched data (or defaults for Dyad)
+  // Use fetched data (or defaults for ARBI Code)
   const providerDisplayName = isDyad
-    ? "Dyad"
+    ? "ARBI Code"
     : (providerData?.name ?? "Unknown Provider");
   const providerWebsiteUrl = providerData?.websiteUrl;
   const hasFreeTier = isDyad ? false : providerData?.hasFreeTier;

@@ -210,7 +210,7 @@
   },
   "azure": {
     "configured": "Azure OpenAI Configurado",
-    "configuredDescription": "O Dyad usará as credenciais salvas nas Configurações para os modelos Azure OpenAI.",
+    "configuredDescription": "O ARBI Code usará as credenciais salvas nas Configurações para os modelos Azure OpenAI.",
     "usingEnvVars": "Usando Variáveis de Ambiente",
     "usingEnvVarsDescription": "AZURE_API_KEY e AZURE_RESOURCE_NAME estão definidas. Os valores salvos abaixo as substituirão.",
     "configRequired": "Configuração do Azure OpenAI Necessária",
@@ -225,8 +225,8 @@
     "configNeededDescription": "As requisições do Azure OpenAI exigem um nome de recurso e uma chave de API. Insira-os acima ou forneça as variáveis de ambiente.",
     "saveError": "Erro ao Salvar",
     "envVarsOptional": "Variáveis de Ambiente (opcional)",
-    "envVarsHelpText": "Você pode continuar configurando o Azure via variáveis de ambiente. Se ambas as variáveis estiverem presentes e nenhuma configuração estiver salva, o Dyad as usará automaticamente.",
-    "envVarsPrecedence": "Os valores salvos nas Configurações têm prioridade sobre as variáveis de ambiente. Reinicie o Dyad após alterar as variáveis de ambiente."
+    "envVarsHelpText": "Você pode continuar configurando o Azure via variáveis de ambiente. Se ambas as variáveis estiverem presentes e nenhuma configuração estiver salva, o ARBI Code as usará automaticamente.",
+    "envVarsPrecedence": "Os valores salvos nas Configurações têm prioridade sobre as variáveis de ambiente. Reinicie o ARBI Code após alterar as variáveis de ambiente."
   },
   "vertex": {
     "projectId": "ID do Projeto",

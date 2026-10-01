@@ -76,7 +76,7 @@
     }
   },
   "dismissError": "Descartar error",
-  "askDyadToBuild": "Pídele a Dyad que construya...",
+  "askDyadToBuild": "Pídele a ARBI Code que construya...",
   "cancelGeneration": "Cancelar generación",
   "stoppingGeneration": "Deteniendo…",
   "cancellationEndingTestRun": "Finalizando la ejecución de pruebas.",
@@ -337,7 +337,7 @@
     "troubleshootingGuide": "Guía de solución de problemas",
     "invalidProKey": "Parece que no tienes una clave válida de Dyad Pro.",
     "today": "hoy.",
-    "creditsUsed": "Has usado todos tus créditos de IA de Dyad este mes.",
+    "creditsUsed": "Has usado todos tus créditos de IA de ARBI Code este mes.",
     "reloadOrUpgrade": "Recarga o actualiza tu suscripción",
     "getMoreCredits": "y consigue más créditos de IA",
     "readDocs": "Leer documentación"
@@ -349,11 +349,11 @@
     "saveOnCosts": "Ahorra hasta 3 veces en costos de IA con",
     "debuggingLoop": "¿Atrapado en un bucle de depuración? Prueba un modelo diferente.",
     "joinBuilders": "Únete a más de 600 desarrolladores en el",
-    "dyadSubreddit": "Subreddit de Dyad",
+    "dyadSubreddit": "Subreddit de ARBI Code",
     "foundBug": "¿Encontraste un error? Haz clic en Ayuda > Informar de un error",
     "reportBadResponse": "¿Quieres reportar una mala respuesta de la IA? Sube el chat haciendo clic en Ayuda",
     "watch": "Ver",
-    "creatorBuildApp": "al creador de Dyad construir una app bíblica paso a paso",
+    "creatorBuildApp": "al creador de ARBI Code construir una app bíblica paso a paso",
     "gettingStuck": "¿Te estás atascando? Lee nuestros",
     "debuggingTips": "consejos de depuración",
     "advancedTip": "Consejo avanzado: Personaliza tus",
@@ -361,7 +361,7 @@
     "keepFocused": "¿Quieres mantener enfocada a la IA? Inicia un nuevo chat.",
     "whatsNext": "¿Quieres saber qué sigue? Echa un vistazo a nuestra",
     "roadmap": "hoja de ruta",
-    "likeDyad": "¿Te gusta Dyad? Dale una estrella en",
+    "likeDyad": "¿Te gusta ARBI Code? Dale una estrella en",
     "gitHub": "GitHub"
   },
   "consent": {

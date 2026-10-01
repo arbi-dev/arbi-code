@@ -28,4 +28,24 @@ describe("shouldShowCloudSandboxOption", () => {
       }),
     ).toBe(true);
   });
+
+  it("hides cloud sandbox in ARBI mode even if the experiment is enabled", () => {
+    expect(
+      shouldShowCloudSandboxOption({
+        runtimeMode: "host",
+        cloudSandboxExperimentEnabled: true,
+        arbiMode: true,
+      }),
+    ).toBe(false);
+  });
+
+  it("hides cloud sandbox in ARBI mode even if cloud mode is active", () => {
+    expect(
+      shouldShowCloudSandboxOption({
+        runtimeMode: "cloud",
+        cloudSandboxExperimentEnabled: false,
+        arbiMode: true,
+      }),
+    ).toBe(false);
+  });
 });

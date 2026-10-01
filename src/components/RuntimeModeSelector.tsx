@@ -16,6 +16,7 @@ import { useCurrentAppUrl } from "@/hooks/useAppRun";
 import { useTranslation } from "react-i18next";
 import type { RuntimeMode2 } from "@/lib/schemas";
 import { useState } from "react";
+import { ARBI_MODE } from "@/arbi-config";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -30,10 +31,17 @@ import {
 export function shouldShowCloudSandboxOption({
   runtimeMode,
   cloudSandboxExperimentEnabled,
+  arbiMode = false,
 }: {
   runtimeMode: RuntimeMode2;
   cloudSandboxExperimentEnabled: boolean;
+  arbiMode?: boolean;
 }) {
+  // ARBI builds hide the Cloud Sandbox runtime: it requires Dyad Pro credits
+  // and Dyad's cloud engine, neither of which an ARBI user has.
+  if (arbiMode) {
+    return false;
+  }
   return cloudSandboxExperimentEnabled || runtimeMode === "cloud";
 }
 
@@ -57,6 +65,7 @@ export function RuntimeModeSelector() {
   const showCloudSandboxOption = shouldShowCloudSandboxOption({
     runtimeMode: settings.runtimeMode2 ?? "host",
     cloudSandboxExperimentEnabled: !!settings.experiments?.enableCloudSandbox,
+    arbiMode: ARBI_MODE,
   });
 
   const applyRuntimeModeChange = async (value: RuntimeMode2) => {

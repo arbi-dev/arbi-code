@@ -125,7 +125,7 @@ describe("settings actions (integration)", () => {
     });
 
     const keyInput = await screen.findByRole("textbox", {
-      name: "Set Dyad API Key",
+      name: "Set ARBI Code API Key",
     });
     fireEvent.change(keyInput, { target: { value: "invalid-dyad-key" } });
     fireEvent.click(screen.getByRole("button", { name: "Save Key" }));

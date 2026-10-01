@@ -64,10 +64,10 @@ export async function resolveAppNameForAppId(
 
   try {
     const fetchedApp = await ipc.app.getApp(appId);
-    return fetchedApp?.name ?? "Dyad";
+    return fetchedApp?.name ?? "ARBI Code";
   } catch (error) {
     console.error("[CHAT_UTILS] Failed to resolve app name via IPC:", error);
   }
 
-  return "Dyad";
+  return "ARBI Code";
 }

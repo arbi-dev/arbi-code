@@ -28,6 +28,7 @@ import {
 import { PlanHandoffProvider } from "@/plan_handoff/PlanHandoffProvider";
 import i18n from "@/i18n";
 import { LanguageSchema } from "@/lib/schemas";
+import { ArbiSetupDialog } from "@/components/ArbiSetupDialog";
 import { useShortcut } from "@/hooks/useShortcut";
 import { useIsMac } from "@/hooks/useChatModeToggle";
 import { ReleaseNotesDialog } from "@/components/ReleaseNotesDialog";
@@ -232,6 +233,7 @@ function RootLayoutContent({ children }: { children: ReactNode }) {
                     hear the screenshot bar's pointer events through React's
                     tree and keep the sidebar expanded. */}
                 <HelpDialog />
+                <ArbiSetupDialog />
               </SidebarProvider>
             </DeepLinkProvider>
           </ThemeProvider>

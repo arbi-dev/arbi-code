@@ -4,6 +4,14 @@ import {
   SMALL_MODEL_NAME,
 } from "./language_model_constants";
 
+// ARBI fork: ARBI_MODE short-circuits the catalog to the local fallback. These
+// tests exercise the remote-catalog path, so force it off here (the ARBI
+// short-circuit itself is covered in src/__tests__/arbi/remote-catalog-arbi.test.ts).
+vi.mock("@/arbi-config", async (importOriginal) => ({
+  ...(await importOriginal<typeof import("@/arbi-config")>()),
+  ARBI_MODE: false,
+}));
+
 type RemoteAlias = {
   id: string;
   providerId: string;

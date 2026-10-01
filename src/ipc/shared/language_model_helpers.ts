@@ -13,6 +13,11 @@ import {
   PROVIDER_TO_ENV_VAR,
 } from "./language_model_constants";
 import { getBuiltinLanguageModelCatalog } from "./remote_language_model_catalog";
+import {
+  ARBI_MODE,
+  ARBI_PROVIDER_ID,
+  HIDE_OTHER_PROVIDERS,
+} from "../../arbi-config";
 
 const logger = log.scope("language_model_helpers");
 /**
@@ -84,7 +89,34 @@ export async function getLanguageModelProviders(): Promise<
     }
   }
 
-  return [...hardcodedProviders, ...customProvidersMap.values()];
+  const all = [...hardcodedProviders, ...customProvidersMap.values()];
+
+  // Test harnesses (Vitest, E2E builds) register their own fake provider
+  // ("testing"), which the ARBI whitelist would otherwise hide.
+  if (process.env.VITEST === "true" || process.env.E2E_TEST_BUILD === "true") {
+    return all;
+  }
+
+  return applyArbiProviderFilter(all);
+}
+
+/**
+ * ARBI mode: hide every provider except the seeded ARBI provider and local
+ * providers (Ollama / LM Studio), so users see one option in the picker.
+ * When ARBI_MODE (or HIDE_OTHER_PROVIDERS) is off, the list is returned as-is.
+ *
+ * Extracted as a pure helper so the ARBI provider-hiding invariant can be unit
+ * tested without standing up the DB/env that getLanguageModelProviders needs.
+ */
+export function applyArbiProviderFilter<
+  T extends { id: string; type?: string },
+>(providers: T[]): T[] {
+  if (ARBI_MODE && HIDE_OTHER_PROVIDERS) {
+    return providers.filter(
+      (p) => p.id === ARBI_PROVIDER_ID || p.type === "local",
+    );
+  }
+  return providers;
 }
 
 /**

@@ -1,7 +1,7 @@
 {
-  "name": "dyad",
-  "version": "1.17.0",
-  "description": "Free, local, open-source AI app builder",
+  "name": "arbi-code",
+  "version": "0.1.3",
+  "description": "AI app builder for ARBI hackathon events (fork of Dyad)",
   "keywords": [],
   "license": "MIT",
   "author": {
@@ -47,6 +47,7 @@
     "presubmit": "npm run fmt:check && npm run lint",
     "eval": "cross-env NODE_OPTIONS=--no-deprecation vitest run --config vitest.eval.config.ts",
     "test": "node --test scripts/promote-previous-beta.test.mjs scripts/start-supervisor.test.mjs scripts/copy-data-to-dev.test.mjs scripts/unauthorized-release-alert.test.mjs scripts/pr-review/validate-review.test.mjs scripts/issue-triage/triage-comment.test.mjs scripts/issue-triage/prepare-context.test.mjs && cross-env NODE_OPTIONS=--no-deprecation VITE_CJS_IGNORE_WARNING=true vitest run",
+    "test:arbi": "cross-env NODE_OPTIONS=--no-deprecation VITE_CJS_IGNORE_WARNING=true vitest run src/__tests__/arbi",
     "test:watch": "cross-env NODE_OPTIONS=--no-deprecation VITE_CJS_IGNORE_WARNING=true vitest",
     "test:ui": "cross-env NODE_OPTIONS=--no-deprecation VITE_CJS_IGNORE_WARNING=true vitest --ui",
     "extract-codebase": "ts-node scripts/extract-codebase.ts",
@@ -220,5 +221,5 @@
   "engines": {
     "node": ">=24 <26"
   },
-  "productName": "dyad"
+  "productName": "ARBI Code"
 }

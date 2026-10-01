@@ -1,9 +1,17 @@
 import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
 import { useSettings } from "@/hooks/useSettings";
+import { ARBI_MODE } from "@/arbi-config";
 
 export function CloudSandboxExperimentSwitch() {
   const { settings, updateSettings } = useSettings();
+
+  // Cloud Sandbox is a Dyad Pro feature (credits + Dyad's cloud engine), so it
+  // is hidden in ARBI builds — users can't use it.
+  if (ARBI_MODE) {
+    return null;
+  }
+
   const isEnabled = !!settings?.experiments?.enableCloudSandbox;
   const isCloudModeActive = settings?.runtimeMode2 === "cloud";
 
